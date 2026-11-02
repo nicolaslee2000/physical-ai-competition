@@ -34,3 +34,32 @@ For every candidate: change one knob, build a distinct image, run offline startu
 2. Screen camera mapping, then schedule cadence; each screen uses paired development episodes and one-knob changes. Run multi-session qualification once against the baseline and any finalist.
 3. Evaluate only the finalist on untouched holdout seeds, balanced across shoulder sides. Preserve logs, image digest, exact setting, sample counts, and metrics.
 4. If no candidate clears the holdout gate before the deadline, keep the pinned baseline. A readiness pass alone is not evidence for a policy improvement.
+
+## Measured progress and next model screen
+
+The first local development screen completed: baseline 0/5, horizon 6/15 and
+10/15 both 2/5, with no unscored episodes. The 6/15 candidate was frozen before
+the paired 20-episode validation began. Its 15 non-development episodes remain
+separate from tuning. The baseline repeat scored 5/20 (4/15 on that validation
+split); the candidate run is still pending. Baseline development performance
+also varied between runs, reinforcing the need to report uncertainty.
+See `results/README.md` for exact identities, latency and revision limitations.
+
+After the active comparison completes, qualify baseline and finalist session
+lifecycle under denied egress with 2 then 12 sessions. A failed qualification
+blocks promotion and must be diagnosed before an official submission.
+
+Then screen the official public MolmoAct2 DROID example on the same five
+development episodes, using `experiments/plan-molmoact2-smoke.json`. This tests a
+different pretrained policy, not another action-horizon adjustment. The official
+recipe's `droid_3cam` default consumes both exterior slots plus wrist, which the
+current local adapter supplies. Keep all model defaults unchanged. Pull only
+after the current GPU comparison/qualification has ended, through the dedicated
+engine and guarded job controller, preserving at least 60 GiB free disk.
+The source/model and memory evidence is in the official
+[image guide](https://github.com/Positronic-Robotics/positronic/blob/00fdd933f22158a9cbe6d97c5b19c2935df35c1b/docs/submit-a-policy-image.md).
+
+Do not reuse the first candidate's validation split as an untouched holdout for
+later tuning or candidates. Further validation requires a newly frozen public
+episode set and transparent provenance, or must be labelled exploratory.
+The official leaderboard remains separate and approval-based.
