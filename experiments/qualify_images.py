@@ -63,7 +63,7 @@ def client_command(python, address, image, recordings, sessions):
 
 def checked_report(path, sessions):
     result = json.loads(path.read_text())
-    if result.get('passed') is not True or result.get('sessions_per_wave') != sessions or result.get('distinct_session_ids_verified') is not True:
+    if result.get('passed') is not True or result.get('sessions_per_wave') != sessions or result.get('distinct_client_connections_verified') is not True or not (result.get('distinct_session_ids_verified') is True or result.get('protocol_versions') == [1] and result.get('distinct_session_ids_verified') is None and result.get('server_session_ids_supported') is False):
         raise ValueError('Qualification stage did not pass with the requested coverage')
     return result
 

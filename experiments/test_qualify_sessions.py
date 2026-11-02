@@ -5,10 +5,12 @@ from types import SimpleNamespace
 import qualify_sessions as qualify
 
 
-def row(index=0):
+def row(index=0, version=2):
     return {'worker': index, 'passed': True, 'waves': [
-        {'session_id': f'{index}-wave-{wave}', 'infer_ms': [20.0, 40.0],
-         'validated_command_steps': 2, 'end_session_acknowledged': True} for wave in range(2)]}
+        {'session_id': f'{index}-wave-{wave}' if version != 1 else None, 'protocol_version': version,
+         'connection_audit_id': f'audit-{index}-{wave}', 'connection_object_id': f'object-{index}-{wave}',
+         'synchronized_open_connection': True, 'connection_closed': True, 'infer_ms': [20.0, 40.0],
+         'validated_command_steps': 2, 'end_session_acknowledged': True if version != 1 else None} for wave in range(2)]}
 
 
 class QualificationTests(unittest.TestCase):
@@ -27,6 +29,25 @@ class QualificationTests(unittest.TestCase):
         self.assertTrue(result['distinct_session_ids_verified'])
         self.assertEqual(result['calls'], 8)
         self.assertEqual((result['p50_ms'], result['p95_ms'], result['max_ms']), (30, 40, 40))
+
+    def test_legacy_connections_pass_without_false_server_id_or_ack_claim(self):
+        result = qualify.aggregate([row(0, 1), row(1, 1)], 2)
+        self.assertTrue(result['passed'])
+        self.assertTrue(result['distinct_client_connections_verified'])
+        self.assertIsNone(result['distinct_session_ids_verified'])
+        self.assertFalse(result['server_session_ids_supported'])
+        self.assertEqual(result['protocol_versions'], [1])
+        self.assertIsNone(result['workers'][0]['waves'][0]['end_session_acknowledged'])
+
+    def test_legacy_requires_distinct_synchronized_closed_connections(self):
+        for key, value in (('connection_closed', False), ('synchronized_open_connection', False),
+                           ('connection_audit_id', 'audit-0-0'), ('connection_object_id', 'object-0-0')):
+            legacy = row(0, 1)
+            legacy['waves'][1][key] = value
+            self.assertFalse(qualify.aggregate([legacy], 1)['passed'])
+        modern = row(0, 2)
+        modern['waves'][0]['session_id'] = None
+        self.assertFalse(qualify.aggregate([modern], 1)['passed'])
 
     def test_duplicate_reopened_or_concurrent_ids_fail_closed(self):
         rows = [row(0), row(1)]
@@ -51,7 +72,7 @@ class QualificationTests(unittest.TestCase):
         self.assertFalse(qualify.aggregate([value], 1)['passed'])
 
     def test_droid_robot_type_required_before_array_validation(self):
-        keys = SimpleNamespace(ROBOT_COMMAND='arm', GRIP='grip')
+        keys = SimpleNamespace(ROBOT_COMMAND='arm', TARGET_GRIP='grip')
         class JointPosition:
             pass
         with self.assertRaises(ValueError):

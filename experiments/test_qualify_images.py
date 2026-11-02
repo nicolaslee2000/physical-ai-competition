@@ -46,6 +46,21 @@ class WrapperTests(unittest.TestCase):
             self.assertEqual(len(calls), 1)
             self.assertEqual(calls[0][calls[0].index('--sessions') + 1], '2')
 
+    def test_report_gate_accepts_legacy_connections_without_server_ids(self):
+        with tempfile.TemporaryDirectory(dir=HERE) as directory:
+            path = Path(directory) / 'report.json'
+            report = {'passed': True, 'sessions_per_wave': 2, 'distinct_client_connections_verified': True,
+                      'distinct_session_ids_verified': None, 'server_session_ids_supported': False, 'protocol_versions': [1]}
+            path.write_text(json.dumps(report))
+            self.assertEqual(wrapper.checked_report(path, 2), report)
+            report['protocol_versions'] = [2]
+            path.write_text(json.dumps(report))
+            with self.assertRaises(ValueError):
+                wrapper.checked_report(path, 2)
+            report.update(distinct_session_ids_verified=True, server_session_ids_supported=True)
+            path.write_text(json.dumps(report))
+            self.assertEqual(wrapper.checked_report(path, 2), report)
+
     def test_deadline_refuses_before_docker(self):
         with patch.object(wrapper.sys, 'platform', 'linux'), patch.object(Path, 'resolve', return_value=wrapper.h.ROOT / 'experiments/qualify_images.py'), patch.object(wrapper.time, 'time', return_value=wrapper.h.DEADLINE), patch('subprocess.run') as run:
             with self.assertRaises(ValueError):

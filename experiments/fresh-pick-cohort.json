@@ -1,0 +1,250 @@
+{
+  "status": "frozen_before_any_MolmoAct2_candidate_outcome",
+  "selected_at_utc": "2026-11-02T22:15:20Z",
+  "purpose": "Fresh 20-episode pick-only finalist validation; use only if development screen is promising.",
+  "benchmark": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+  "task_family": "DROID Franka pick mini",
+  "manifest": {
+    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/benchmark.json",
+    "sha256": "c22a7e4262d0b9e2fa073cba0fe4713f7f7a45235332de77149ee771822ca42b",
+    "episode_count": 1000
+  },
+  "selection": {
+    "rule": "random.Random(20261102).sample(sorted(nonblocked_indices minus {0..20}), 20)",
+    "python_version": "3.10.12",
+    "selection_seed": 20261102,
+    "excluded_previous_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "public_right_view_blocked_count": 110,
+    "eligible_count": 870,
+    "all_indices_in_bounds": true,
+    "all_indices_unblocked": true,
+    "no_overlap_with_indices_0_through_20": true
+  },
+  "camera_order_provenance": "Pinned local v2 task configuration draws random.Random(eval.seed).sample([LEFT, RIGHT], 2); seed 0 gives right,left and seed 1 gives left,right. Assign first 10 selected entries to seed 0 and last 10 to seed 1. Pair policies on identical episode_path and eval_seed.",
+  "episodes": [
+    {
+      "selection_order": 1,
+      "episode_index": 673,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/673",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 2,
+      "episode_index": 103,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/103",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 3,
+      "episode_index": 445,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/445",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 4,
+      "episode_index": 742,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/742",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 5,
+      "episode_index": 753,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/753",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 6,
+      "episode_index": 206,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/206",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 7,
+      "episode_index": 162,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/162",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 8,
+      "episode_index": 488,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/488",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 9,
+      "episode_index": 73,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/73",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 10,
+      "episode_index": 897,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/897",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 11,
+      "episode_index": 987,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/987",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 12,
+      "episode_index": 764,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/764",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 13,
+      "episode_index": 253,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/253",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 14,
+      "episode_index": 907,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/907",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 15,
+      "episode_index": 475,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/475",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 16,
+      "episode_index": 611,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/611",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 17,
+      "episode_index": 728,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/728",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 18,
+      "episode_index": 553,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/553",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 19,
+      "episode_index": 243,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/243",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 20,
+      "episode_index": 934,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/934",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    }
+  ],
+  "holdout_policy": "Do not use these episodes for tuning or development-screen decisions. Compare pinned baseline and MolmoAct2 finalist only after development screening. Keep the earlier mixed-family six-episode proposal separate/optional, not part of this 20-episode primary cohort.",
+  "provenance": "Manifest and right-view blocklist were read from the verified task-local cache/repository on hdhyundai-deploy; selection inspected only manifest bounds and blocklist membership, not episode success/outcomes."
+}
