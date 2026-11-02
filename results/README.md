@@ -1,5 +1,19 @@
 # Local development screen — 2 November 2026
 
+## Campaign stopped; fresh validation pending
+
+MolmoAct2 DROID completed **4/5 development tasks**, versus **1/5** for the repeated
+baseline, with zero unscored episodes. Local inference p95 was 380.8 ms versus
+68.0 ms. See [the development result](molmoact2-development-20261102.json).
+This five-episode result is preliminary; fresh validation has not run, so the
+approved baseline remains retained.
+
+The watchdog stopped the campaign at 22:36:30 UTC when the coordinator failed to
+mirror a usage refresh during a long turn. Allowance was still 63%. Task jobs
+and engine are stopped; the overnight automation was deleted. The refresh path
+has been fixed to mirror every live check immediately. See [HANDOFF.md](../HANDOFF.md)
+for the prepared validation and explicit-resume boundary.
+
 ## Official baseline result
 
 Team Nick's approved π0.5 DROID baseline finished the official

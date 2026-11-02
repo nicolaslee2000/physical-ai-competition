@@ -19,7 +19,7 @@ import uuid
 
 import local_eval as h
 from qualify_images import container_command, validated_plan
-from summarize_fresh import frozen_cohort
+from summarize_fresh import frozen_cohort, cohort_description
 
 
 def eval_command(binary, address, rows, output):
@@ -85,7 +85,7 @@ def main():
     if type(timeout) is not int or not 60 <= timeout <= 7200:
         raise ValueError('Cohort timeout must be 60..7200 seconds')
     plan.update(cohort_sha256=args.cohort_sha256, model_plan_sha256=hashlib.sha256(raw_plan).hexdigest(),
-                scope='fresh local public pick-only validation; not official competition',
+                **cohort_description(cohort), task_family=cohort['task_family'],
                 worst_case_seconds=2 * (plan['ready_timeout_s'] + 2 * timeout + 480) + 120)
     print(json.dumps(plan, indent=2), flush=True)
     if not args.execute:

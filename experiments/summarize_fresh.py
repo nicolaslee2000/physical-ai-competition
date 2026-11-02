@@ -1,10 +1,26 @@
 #!/usr/bin/env python3
-"""Read-only JSON summary of a frozen fresh local public pick cohort; not an official score."""
+"""Read-only JSON summary of a frozen fresh local public pick/placement cohort; not an official score."""
 import argparse
 from collections import Counter
 import hashlib
 import json
 from pathlib import Path
+
+
+
+PICK_BENCHMARK = 'molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231'
+PLACEMENT_BENCHMARK = 'molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark'
+
+
+def cohort_description(cohort):
+    benchmark = cohort['benchmark']
+    if benchmark == PICK_BENCHMARK:
+        return {'expected_episodes': 20, 'scope': 'fresh local public pick-only validation; not official competition score',
+                'visibility_caveat': 'Curated right-view blocked episodes excluded; remaining views are not guaranteed unobstructed.'}
+    if benchmark == PLACEMENT_BENCHMARK:
+        return {'expected_episodes': 10, 'scope': 'fresh local public next-to placement diagnostic; not official competition score',
+                'visibility_caveat': 'No curated right-view blocklist entry exists for this benchmark. Right-view visibility is unknown; do not post-select by visibility or outcome.'}
+    raise ValueError('Unsupported benchmark: only exact frozen Mini and NextToHard families are supported')
 
 
 def frozen_cohort(path, digest, blocked):
@@ -14,15 +30,20 @@ def frozen_cohort(path, digest, blocked):
     cohort = json.loads(raw)
     rows = cohort['episodes']
     benchmark = cohort['benchmark']
-    if not cohort['status'].startswith('frozen_') or len(rows) != 20 or cohort['manifest']['episode_count'] != 1000:
-        raise ValueError('Expected frozen 20-episode/1000-entry mini cohort')
+    description = cohort_description(cohort)
+    count = description['expected_episodes']
+    if not cohort['status'].startswith('frozen_') or len(rows) != count or cohort['manifest']['episode_count'] != 1000:
+        raise ValueError('Frozen cohort count or manifest size differs from the restricted benchmark specification')
     indices = [row['episode_index'] for row in rows]
-    if len(set(indices)) != 20 or any(type(index) is not int or not 21 <= index < 1000 for index in indices):
+    if len(set(indices)) != count or any(type(index) is not int or not 21 <= index < 1000 for index in indices):
         raise ValueError('Duplicate, previous, or out-of-range episode index')
-    if benchmark not in blocked or set(indices) & set(blocked[benchmark]):
-        raise ValueError('Missing benchmark blocklist or blocked episode selected')
-    if Counter(row['eval_seed'] for row in rows) != {0: 10, 1: 10}:
-        raise ValueError('Expected two ten-episode seed cohorts')
+    if benchmark == PICK_BENCHMARK:
+        if benchmark not in blocked or set(indices) & set(blocked[benchmark]):
+            raise ValueError('Missing Mini blocklist or blocked episode selected')
+    elif cohort['selection'].get('right_view_blocklist_key_present') is not False or benchmark in blocked:
+        raise ValueError('NextToHard requires explicit frozen absent-blocklist provenance; visibility remains unknown')
+    if Counter(row['eval_seed'] for row in rows) != {0: count // 2, 1: count // 2}:
+        raise ValueError('Expected two equally sized seed cohorts')
     for row in rows:
         if row['episode_path'] != f'{benchmark}/{row["episode_index"]}' or row['camera_order'] != (['right', 'left'] if row['eval_seed'] == 0 else ['left', 'right']):
             raise ValueError('Episode path or camera-order provenance differs')
@@ -49,6 +70,9 @@ def summarize(run, cohort):
     from positronic.eval.keys import SEED
     from positronic.simulator.molmo_spaces.keys import BENCHMARK_DIMENSIONS
     from summarize_recordings import checked_latency
+    description = cohort_description(cohort)
+    expected_count = description['expected_episodes']
+    per_seed = Counter(row['eval_seed'] for row in cohort['episodes'])
     rows, labels, timings = [], [], {}
     for seed in (0, 1):
         root = run / f'seed-{seed}'
@@ -64,13 +88,15 @@ def summarize(run, cohort):
                          'path': '/'.join(str(static[key]) for key in BENCHMARK_DIMENSIONS) + f'/{index}',
                          'recording_path': str(episode.meta[META_PATH]),
                          'score': episode_score(found[1], metric.episode_score, metric.time_limit_s)})
-        timings[str(seed)] = checked_latency(json.loads((root / 'episodes/timing_summary.json').read_text()), 10)
+        timings[str(seed)] = checked_latency(json.loads((root / 'episodes/timing_summary.json').read_text()), per_seed[seed])
     expected = {row['episode_index']: row for row in cohort['episodes']}
     validate_coverage(rows, expected)
     scores = score(MOLMO_SCORING, labels)
-    if scores.unscored or scores.episodes != 20:
+    if scores.unscored or scores.episodes != expected_count:
         raise ValueError('Incomplete scores')
-    return {'scope': 'fresh local public pick-only validation, single trial per episode; not official competition score',
+    return {**description, 'task_family': cohort['task_family'], 'benchmark': cohort['benchmark'],
+            'trial_caveat': 'Single trial per episode; no automatic selection or promotion.',
+            'manifest_sha256': cohort['manifest']['sha256'],
             'scores': scores.model_dump(), 'successes': sum(row['score'] for row in rows),
             'episodes': sorted(rows, key=lambda row: row['index']), 'cohort_timing': timings,
             'latency_note': 'per-cohort upstream client round trips; percentiles are not pooled across cohorts'}

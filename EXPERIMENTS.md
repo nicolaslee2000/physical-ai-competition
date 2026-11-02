@@ -51,8 +51,9 @@ Baseline and MolmoAct2 both passed offline session lifecycle checks with 2 then
 card memory stayed below 13 GiB. See `results/runtime-qualification-20261102.json`.
 These are local reliability observations, not official hardware guarantees.
 
-The official public MolmoAct2 DROID example is now screening on the same five
-development episodes, using `experiments/plan-molmoact2-smoke.json`. This tests a
+The official public MolmoAct2 DROID example scored **4/5 development successes**
+versus the repeated baseline's **1/5**, using `experiments/plan-molmoact2-smoke.json`.
+Fresh validation has not run; this does not yet establish improvement. This tests a
 different pretrained policy, not another action-horizon adjustment. The official
 recipe's `droid_3cam` default consumes both exterior slots plus wrist, which the
 current local adapter supplies. Keep all model defaults unchanged. Pull only
@@ -65,3 +66,12 @@ Do not reuse the first candidate's validation split as an untouched holdout for
 later tuning or candidates. Further validation requires a newly frozen public
 episode set and transparent provenance, or must be labelled exploratory.
 The official leaderboard remains separate and approval-based.
+
+## Stopped at 22:36 UTC
+
+The watchdog stopped the campaign because the coordinator failed to mirror its
+live usage checks during a long turn; the last server snapshot expired. Usage
+still had 63% remaining. Task jobs/engine are stopped and the overnight heartbeat
+was deleted. `control/save-usage.py` now mirrors each live check immediately,
+without clearing stop markers. `HANDOFF.md` records the prepared fresh pick20 and
+placement10 tests. Respect the stop latch; do not rearm without explicit resume.

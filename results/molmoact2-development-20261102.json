@@ -1,0 +1,80 @@
+[
+  {
+    "name": "baseline",
+    "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+    "status": "complete",
+    "container_name": "physical-ai-eval-ac68d6fc1c78",
+    "network_name": "physical-ai-eval-ac68d6fc1c78-internal",
+    "identity_type": "registry-manifest-digest",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.2,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.2,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 73,
+        "infer_p50_ms": 65.057294,
+        "infer_p95_ms": 67.99003760000001,
+        "wall_s": 158.779466843,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  },
+  {
+    "name": "molmoact2-droid",
+    "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+    "status": "complete",
+    "container_name": "physical-ai-eval-2dde44523ee6",
+    "network_name": "physical-ai-eval-2dde44523ee6-internal",
+    "identity_type": "registry-manifest-digest",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.8,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.8,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 48,
+        "infer_p50_ms": 372.660477,
+        "infer_p95_ms": 380.82893605,
+        "wall_s": 123.787516831,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  }
+]

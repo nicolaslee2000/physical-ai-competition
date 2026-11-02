@@ -66,6 +66,50 @@ class FreshTests(unittest.TestCase):
         self.assertEqual(paths, [value['episode_path'] for value in rows])
         self.assertFalse(any('policy-image' in value for value in command))
 
+    def placement(self):
+        path = HERE / 'fresh-placement-cohort.json'
+        return summary.frozen_cohort(path, hashlib.sha256(path.read_bytes()).hexdigest(), json.loads(BLOCKLIST.read_text()))
+
+    def test_exact_placement_ten_episodes_and_explicit_visibility_unknown(self):
+        cohort = self.placement()
+        description = summary.cohort_description(cohort)
+        self.assertEqual(description['expected_episodes'], 10)
+        self.assertIn('diagnostic', description['scope'])
+        self.assertIn('unknown', description['visibility_caveat'])
+        self.assertEqual([sum(row['eval_seed'] == seed for row in cohort['episodes']) for seed in (0, 1)], [5, 5])
+        expected = {value['episode_index']: value for value in cohort['episodes']}
+        rows = [{'index': index, 'path': value['episode_path'], 'seed': value['eval_seed'], 'camera_order': value['camera_order'], 'score': 0} for index, value in expected.items()]
+        summary.validate_coverage(rows, expected)
+        command = fresh.eval_command('positronic', '172.25.0.2', cohort['episodes'][:5], '/owned/output')
+        self.assertIn(summary.PLACEMENT_BENCHMARK + '/601', ' '.join(command))
+        self.assertIn('--eval.seed=0', command)
+
+    def test_absent_blocklist_exception_is_placement_only_and_explicit(self):
+        def check(cohort, blocklist):
+            with tempfile.TemporaryDirectory(dir=HERE) as directory:
+                path = Path(directory) / 'cohort.json'
+                raw = json.dumps(cohort).encode()
+                path.write_bytes(raw)
+                return summary.frozen_cohort(path, hashlib.sha256(raw).hexdigest(), blocklist)
+        with self.assertRaises(ValueError):
+            check(self.frozen(), {})
+        placement = self.placement()
+        with self.assertRaises(ValueError):
+            check(placement, {summary.PLACEMENT_BENCHMARK: []})
+        for flag in (True, None):
+            changed = copy.deepcopy(placement)
+            changed['selection']['right_view_blocklist_key_present'] = flag
+            with self.assertRaises(ValueError):
+                check(changed, {})
+        changed = copy.deepcopy(placement)
+        changed['benchmark'] += '-other'
+        with self.assertRaises(ValueError):
+            check(changed, {})
+        changed = copy.deepcopy(placement)
+        changed['episodes'][0]['eval_seed'] = 1
+        with self.assertRaises(ValueError):
+            check(changed, {})
+
     def test_dry_run_does_not_spawn(self):
         args = ['fresh_eval.py', '--plan', str(HERE / 'plan-horizon-validation.json'), '--cohort', str(COHORT), '--cohort-sha256', hashlib.sha256(COHORT.read_bytes()).hexdigest(), '--blocklist', str(BLOCKLIST)]
         with patch('sys.argv', args), patch('subprocess.run') as run, patch.object(fresh.h, 'bounded') as bounded, contextlib.redirect_stdout(io.StringIO()) as output:
