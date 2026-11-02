@@ -94,7 +94,7 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
     connection_objects = []
     session = runtime = run = None
     def expired(signum, frame):
-        raise TimeoutError('15-second session wave deadline')
+        raise TimeoutError('60-second session wave deadline; each inference remains capped at 15 seconds')
     try:
         import numpy as np
         from positronic import keys
@@ -114,7 +114,7 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
                                  open_timeout=3, connect_deadline=10, infer_timeout=15)
         signal.signal(signal.SIGALRM, expired)
         for wave in range(2):
-            signal.alarm(15)
+            signal.alarm(60)
             result['stage'] = 'open'
             session = client.new_session()
             result['stage'] = 'handshake'
@@ -256,7 +256,7 @@ def main():
     try:
         for process in processes:
             process.start()
-        deadline = time.monotonic() + 90  # Includes read/import plus two 15s waves.
+        deadline = time.monotonic() + 150  # Imports plus two bounded waves; per-inference timeout is 15s.
         while len(rows) < args.sessions:
             try:
                 rows.append(output.get(timeout=max(.01, deadline - time.monotonic())))

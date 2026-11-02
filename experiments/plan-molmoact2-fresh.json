@@ -1,0 +1,18 @@
+{
+  "repo": "/opt/hderc-internal/nick/physical-ai-competition/positronic",
+  "positronic": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/positronic",
+  "python": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/python",
+  "eval_timeout_s": 1800,
+  "ready_timeout_s": 600,
+  "policies": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f"
+    },
+    {
+      "name": "molmoact2-droid",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6"
+    }
+  ],
+  "eval": "molmo.franka_pick_mini_smoke"
+}
