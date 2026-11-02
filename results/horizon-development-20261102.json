@@ -1,0 +1,119 @@
+[
+  {
+    "name": "baseline",
+    "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+    "status": "complete",
+    "container_name": "physical-ai-eval-f12b966db086",
+    "network_name": "physical-ai-eval-f12b966db086-internal",
+    "identity_type": "registry-manifest-digest",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.0,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.0,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 85,
+        "infer_p50_ms": 67.288321,
+        "infer_p95_ms": 69.30967820000001,
+        "wall_s": 180.110690733,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  },
+  {
+    "name": "horizon-6of15",
+    "image": "sha256:8299881611843caaaf5292e9d0541b596395964a2bb005f38420fe5fe79d4f84",
+    "status": "complete",
+    "container_name": "physical-ai-eval-57775b2dbaee",
+    "network_name": "physical-ai-eval-57775b2dbaee-internal",
+    "identity_type": "local-config-id",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 63,
+        "infer_p50_ms": 66.784863,
+        "infer_p95_ms": 69.73569520000001,
+        "wall_s": 137.912675454,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  },
+  {
+    "name": "horizon-10of15",
+    "image": "sha256:b3cf17017736982e8ee0d227c63da50c46cbe015663f90ede003101b6b6be4a9",
+    "status": "complete",
+    "container_name": "physical-ai-eval-666f94d8ea8b",
+    "network_name": "physical-ai-eval-666f94d8ea8b-internal",
+    "identity_type": "local-config-id",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 75,
+        "infer_p50_ms": 66.07158100000001,
+        "infer_p95_ms": 69.24478979999999,
+        "wall_s": 159.662279293,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  }
+]
