@@ -1,0 +1,16 @@
+{
+  "policy": "official pi0.5 DROID baseline",
+  "image": "ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda",
+  "tested_image_config": "sha256:6179ec7cea36d979333e8285fad29d09282770f8f4e7e7f360b93881ca94cc97",
+  "published_config_matches_tested_image": true,
+  "anonymous_registry_access": true,
+  "offline_readiness_passed": true,
+  "startup_seconds": 51,
+  "outbound_connection_denied": true,
+  "keepalive_response": {"alive_seconds": null},
+  "uncompressed_image_bytes": 30995544078,
+  "server_task_directory": "/opt/hderc-internal/nick/physical-ai-competition",
+  "task_engine_stopped_after_test_and_upload": true,
+  "server_registry_credentials_removed": true,
+  "scope": "Offline startup and readiness only; task success and inference latency await evaluation."
+}
