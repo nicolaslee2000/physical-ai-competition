@@ -32,6 +32,8 @@ def environment():
            'LANG': 'C.UTF-8', 'PHYSICAL_AI_CACHE_DIR': str(ROOT / 'cache/positronic'), 'XDG_CACHE_HOME': str(ROOT / 'cache'),
            'XDG_CONFIG_HOME': str(ROOT / 'config'), 'XDG_DATA_HOME': str(ROOT / 'data'),
            'TMPDIR': str(ROOT / 'tmp'), 'UV_CACHE_DIR': str(ROOT / 'cache/uv'),
+           'CUDA_CACHE_PATH': str(ROOT / 'cache/cuda'), 'TORCH_HOME': str(ROOT / 'cache/torch'),
+           'NUMBA_CACHE_DIR': str(ROOT / 'cache/numba'), 'JAX_COMPILATION_CACHE_DIR': str(ROOT / 'cache/jax'),
            'UV_PYTHON_INSTALL_DIR': str(ROOT / 'data/uv/python'), 'HF_HOME': str(ROOT / 'models/huggingface'),
            'MLSPACES_ASSETS_DIR': str(ROOT / 'models/molmospaces/assets'),
            'MLSPACES_CACHE_DIR': str(ROOT / 'cache/molmospaces'), 'CUDA_VISIBLE_DEVICES': GPU,
