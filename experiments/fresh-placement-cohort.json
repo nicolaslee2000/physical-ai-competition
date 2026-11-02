@@ -1,0 +1,157 @@
+{
+  "status": "frozen_before_any_MolmoAct2_candidate_outcome",
+  "selected_at_utc": "2026-11-02T22:33:18Z",
+  "purpose": "Fresh ten-episode DROID next-to placement diagnostic; use only after an unchanged development screen and for a finalist, not tuning.",
+  "benchmark": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
+  "task_family": "Franka DROID pick and place next to",
+  "manifest": {
+    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/benchmark.json",
+    "sha256": "aaa121c71a6a5a575406e471e3202ba1ac0cd96049943aa9b7788cbdcbcc78a0",
+    "episode_count": 1000,
+    "task_text_placement_match_count": 1000,
+    "verified_robot": "franka_droid",
+    "verified_camera_system": "FrankaOmniPurposeCameraSystem",
+    "verified_split": "val"
+  },
+  "selection": {
+    "rule": "random.Random(20261102).sample(sorted(nonblocked_indices minus {0..20}), 10)",
+    "python_version": "3.10.12",
+    "selection_seed": 20261102,
+    "excluded_previous_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "right_view_blocklist_key_present": false,
+    "listed_blocked_count": 0,
+    "eligible_count": 979,
+    "all_indices_in_bounds": true,
+    "all_selected_task_descriptions_contain_next_to": true,
+    "all_record_franka_droid_and_left_camera_alias": true,
+    "no_numeric_overlap_with_indices_0_through_20": true
+  },
+  "camera_and_visibility_provenance": "Pinned server env.py `_left_shoulder_config` explicitly supports FrankaOmniPurposeCameraSystem and selects the recorded droid_shoulder_light_randomization camera. `_with_right_shoulder_camera` mirrors and jitters that left pose to synthesize right_shoulder_camera; `_build` calls it when with_right_shoulder=True. Camera randomization is deterministic per benchmark path and index via mapping.episode_rng. The public right-view blocklist has no key for this benchmark; that indicates no curated blocks, not that every right view is necessarily unobstructed. Keep that caveat and do not post-select episodes by visibility/outcome.",
+  "episodes": [
+    {
+      "selection_order": 1,
+      "episode_index": 601,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/601",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 2,
+      "episode_index": 88,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/88",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 3,
+      "episode_index": 407,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/407",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 4,
+      "episode_index": 666,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/666",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 5,
+      "episode_index": 677,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/677",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 6,
+      "episode_index": 184,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/184",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 7,
+      "episode_index": 145,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/145",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 8,
+      "episode_index": 445,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/445",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 9,
+      "episode_index": 66,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/66",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 10,
+      "episode_index": 801,
+      "episode_path": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/801",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    }
+  ],
+  "runner_and_score": "Pinned custom runner supports `positronic eval run --eval=.sim.molmo.benchmarks --eval.episode_paths=[...] --eval.seed=N --eval.trial_count=1` with each path `<benchmark path>/<index>`. For each camera order group, pair baseline and finalist on identical paths and seed. Score using the public Molmo end labeler and MeanEpisodeScore semantics. This is a custom DROID diagnostic, not a separately registered official leaderboard eval.",
+  "holdout_policy": "Do not use for MolmoAct2 tuning or development screening. Run only as paired finalist diagnostic if the development screen warrants it. Keep the separate fresh 20-episode pick-only cohort unchanged; this cohort assesses next-to placement-family behavior only. No candidate outcomes were inspected during selection.",
+  "provenance": "Read-only inspection of the task-local v2 benchmark manifest, public blocklist, and pinned server checkout. Selection used only manifest bounds and task-family/camera metadata, not any success outcomes or replay."
+}
