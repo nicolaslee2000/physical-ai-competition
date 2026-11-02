@@ -1,5 +1,17 @@
 # Local development screen — 2 November 2026
 
+## Official baseline result
+
+Team Nick's approved π0.5 DROID baseline finished the official
+`molmo.competition_v2` evaluation at **19.375% success: 62/320 episodes**, with
+zero unscored episodes. It ranked **19th when checked at 22:23 UTC**; rankings
+can change. The run ended at 22:20:06 UTC.
+The platform has not yet published the stable replay/report link; it will be
+added when available. See the [public competition leaderboard](https://competition.phail.ai/)
+and [saved result summary](official-baseline-20261102.json).
+The local practice experiments below use a different task set and are separate
+from this official result. No additional official submission has been made.
+
 ## Validation outcome: retain baseline
 
 The frozen 6/15 s candidate **did not improve held-out success**:
@@ -62,6 +74,6 @@ Exact image identities, counts and timings are in
 Candidate identities beginning with bare `sha256:` are local image config IDs,
 not registry manifest digests. A future submission must use a published manifest
 digest and requires human approval. The approved baseline submission
-`6167d92cf2009b1e` remains in the evaluating stage as of 21:47 UTC.
+`6167d92cf2009b1e` completed with the official result above.
 
 Private raw recordings remain in the task folder. No other team's data was used.

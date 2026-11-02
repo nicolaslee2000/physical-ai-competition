@@ -1,0 +1,21 @@
+{
+  "team": "Nick",
+  "submission_id": "6167d92cf2009b1e",
+  "eval": "molmo.competition_v2",
+  "image": "ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda",
+  "status": "finished",
+  "outcome": "succeeded",
+  "score_primary": 0.19375,
+  "successes": 62,
+  "episodes": 320,
+  "unscored": 0,
+  "started_at": "2026-11-02T20:21:47.787290Z",
+  "ended_at": "2026-11-02T22:20:06.165536Z",
+  "rank_when_checked": 19,
+  "rank_checked_at_utc": "2026-11-02T22:23:12.358964+00:00",
+  "replay": null,
+  "report": null,
+  "replay_status": "not yet published by platform; keep checking own ranking row",
+  "leaderboard": "https://competition.phail.ai/",
+  "source": "Authenticated submission status and result artifact; public own ranking row. No signed artifact URLs included."
+}
