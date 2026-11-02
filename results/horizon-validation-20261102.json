@@ -1,0 +1,124 @@
+[
+  {
+    "name": "baseline",
+    "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+    "status": "complete",
+    "container_name": "physical-ai-eval-7fdecc0b005b",
+    "network_name": "physical-ai-eval-7fdecc0b005b-internal",
+    "identity_type": "registry-manifest-digest",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini",
+      "full": {
+        "primary": 0.25,
+        "episodes": 20,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.2,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "holdout": {
+        "primary": 0.26666666666666666,
+        "episodes": 15,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "holdout_episode_indices": [
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "latency": {
+        "infer_calls": 311,
+        "infer_p50_ms": 66.688308,
+        "infer_p95_ms": 69.0756355,
+        "wall_s": 645.115401905,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 20 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  },
+  {
+    "name": "horizon-6of15",
+    "image": "sha256:8299881611843caaaf5292e9d0541b596395964a2bb005f38420fe5fe79d4f84",
+    "status": "complete",
+    "container_name": "physical-ai-eval-8994f0d6c3e9",
+    "network_name": "physical-ai-eval-8994f0d6c3e9-internal",
+    "identity_type": "local-config-id",
+    "policy_address": "172.18.0.2",
+    "metrics": {
+      "eval": "molmo.franka_pick_mini",
+      "full": {
+        "primary": 0.35,
+        "episodes": 20,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.6,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "holdout": {
+        "primary": 0.26666666666666666,
+        "episodes": 15,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "holdout_episode_indices": [
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ],
+      "latency": {
+        "infer_calls": 276,
+        "infer_p50_ms": 66.852709,
+        "infer_p95_ms": 69.8335865,
+        "wall_s": 581.253715969,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 20 selected practice episodes; client-observed inference round trip"
+    },
+    "network_cleanup_returncode": 0,
+    "container_cleanup_returncode": 0
+  }
+]

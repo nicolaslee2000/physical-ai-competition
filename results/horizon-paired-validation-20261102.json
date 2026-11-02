@@ -1,0 +1,312 @@
+{
+  "control_run": "/opt/hderc-internal/nick/physical-ai-competition/experiments/results/20261102T214430Z-cb0ade4a/baseline",
+  "candidate_run": "/opt/hderc-internal/nick/physical-ai-competition/experiments/results/20261102T214430Z-cb0ade4a/horizon-6of15",
+  "control_image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+  "candidate_image": "sha256:8299881611843caaaf5292e9d0541b596395964a2bb005f38420fe5fe79d4f84",
+  "development": {
+    "episodes": 5,
+    "control": {
+      "successes": 1,
+      "rate": 0.2,
+      "wilson_95": [
+        0.03622410863243014,
+        0.6244653702374747
+      ]
+    },
+    "candidate": {
+      "successes": 3,
+      "rate": 0.6,
+      "wilson_95": [
+        0.2307242812760128,
+        0.882379225767352
+      ]
+    },
+    "both_success": 1,
+    "both_fail": 2,
+    "improved": 2,
+    "regressed": 0,
+    "paired_net_successes": 2,
+    "paired_rate_difference": 0.4,
+    "mcnemar_exact_two_sided_p": 0.5,
+    "missing_metadata_indices": {
+      "task_instruction": [],
+      "camera_slot_sides": []
+    },
+    "per_episode": [
+      {
+        "index": 0,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 1,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 2,
+        "control": 1,
+        "candidate": 1,
+        "comparison": "both_success",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "success",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 3,
+        "control": 0,
+        "candidate": 1,
+        "comparison": "improved",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 4,
+        "control": 0,
+        "candidate": 1,
+        "comparison": "improved",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "success"
+      }
+    ]
+  },
+  "validation": {
+    "episodes": 15,
+    "control": {
+      "successes": 4,
+      "rate": 0.26666666666666666,
+      "wilson_95": [
+        0.10897453325692374,
+        0.5195043405598057
+      ]
+    },
+    "candidate": {
+      "successes": 4,
+      "rate": 0.26666666666666666,
+      "wilson_95": [
+        0.10897453325692374,
+        0.5195043405598057
+      ]
+    },
+    "both_success": 1,
+    "both_fail": 8,
+    "improved": 3,
+    "regressed": 3,
+    "paired_net_successes": 0,
+    "paired_rate_difference": 0.0,
+    "mcnemar_exact_two_sided_p": 1.0,
+    "missing_metadata_indices": {
+      "task_instruction": [],
+      "camera_slot_sides": []
+    },
+    "per_episode": [
+      {
+        "index": 5,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 7,
+        "control": 0,
+        "candidate": 1,
+        "comparison": "improved",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 8,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 9,
+        "control": 1,
+        "candidate": 0,
+        "comparison": "regressed",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "success",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 10,
+        "control": 0,
+        "candidate": 1,
+        "comparison": "improved",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 11,
+        "control": 1,
+        "candidate": 0,
+        "comparison": "regressed",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "success",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 12,
+        "control": 0,
+        "candidate": 1,
+        "comparison": "improved",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 13,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 14,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 15,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 16,
+        "control": 1,
+        "candidate": 1,
+        "comparison": "both_success",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "success",
+        "candidate_label_outcome": "success"
+      },
+      {
+        "index": 17,
+        "control": 1,
+        "candidate": 0,
+        "comparison": "regressed",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "success",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 18,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 19,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      },
+      {
+        "index": 20,
+        "control": 0,
+        "candidate": 0,
+        "comparison": "both_fail",
+        "metadata_checks": {
+          "task_instruction": "matched",
+          "camera_slot_sides": "matched"
+        },
+        "control_label_outcome": "fail",
+        "candidate_label_outcome": "fail"
+      }
+    ]
+  },
+  "pairing": "matched public episode indices; available task instructions and exterior-slot sides checked; matching random seeds and all simulator stochasticity are not established",
+  "caveat": "Local public practice only, not competition private evaluation. One trial per episode; small samples yield wide Wilson intervals. Exact McNemar conditions on discordant pairs and assumes valid independent pairs. No automatic selection or promotion; repeated validation inspection changes its role."
+}

@@ -40,8 +40,9 @@ For every candidate: change one knob, build a distinct image, run offline startu
 The first local development screen completed: baseline 0/5, horizon 6/15 and
 10/15 both 2/5, with no unscored episodes. The 6/15 candidate was frozen before
 the paired 20-episode validation began. Its 15 non-development episodes remain
-separate from tuning. The baseline repeat scored 5/20 (4/15 on that validation
-split); the candidate run is still pending. Baseline development performance
+separate from tuning. The baseline repeat scored 5/20 and the candidate 7/20,
+but both scored **4/15 on held-out validation** (three improved, three regressed).
+The baseline is retained; there is no held-out gain. Baseline development performance
 also varied between runs, reinforcing the need to report uncertainty.
 See `results/README.md` for exact identities, latency and revision limitations.
 

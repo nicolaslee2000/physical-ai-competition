@@ -1,6 +1,30 @@
 # Local development screen — 2 November 2026
 
-Shorter action chunks are a promising candidate, pending held-out validation.
+## Validation outcome: retain baseline
+
+The frozen 6/15 s candidate **did not improve held-out success**:
+
+| Policy | Development | Held-out validation | Total |
+| --- | ---: | ---: | ---: |
+| Baseline 8/15 s | 1/5 | 4/15 | 5/20 |
+| Candidate 6/15 s | 3/5 | 4/15 | 7/20 |
+
+All 40 episodes were scored. On the 15 held-out episodes, three improved and
+three regressed; one succeeded for both policies and eight failed for both.
+The paired net gain was zero (exact two-sided McNemar p=1.0). Each policy's
+success interval is wide (Wilson 95%: 10.9–52.0%), so this small comparison does
+not establish superiority or equivalence. Keep the approved baseline.
+
+Task instructions and shoulder-slot side metadata matched for every pair.
+Matching all simulator randomness has not been established. Inference p95 was
+69.1 ms baseline and 69.8 ms candidate; observed maxima were 100.4 and 99.9 ms.
+See [validation results](horizon-validation-20261102.json) and
+[paired episode analysis](horizon-paired-validation-20261102.json).
+Multi-session reliability qualification is running separately; no additional
+official submission has been made.
+
+## Earlier development screen
+
 The five development episodes were identical across policies; all were scored.
 
 | Policy | Successes | Inference p95 | Total episode wall time |
@@ -21,7 +45,7 @@ competition timing guarantee or multi-session qualification. See the
 exclusion is an operational label, not a measurement of compiler warmup.
 
 The 6/15 s candidate was frozen for a paired 20-episode validation against the
-baseline, with 15 previously unused episodes reported separately. The two
+baseline, with 15 previously unused episodes reported separately above. The two
 development candidates tied; the shorter candidate was first in the planned
 sweep and completed its development batch faster. It has not been promoted or
 submitted to the competition.
