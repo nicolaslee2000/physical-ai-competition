@@ -4,7 +4,7 @@
 
 Keep the official π0.5 DROID image as the control: base image pinned in `Dockerfile`; submitted digest `ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda` (submission `6167d92cf2009b1e` is still evaluating). `validation.json` establishes offline startup/readiness only (51 s); it explicitly does not establish task success or inference latency. Do not interpret a candidate as better without scored task outcomes.
 
-Constraints from the competition guide: the runtime has no network, gets one 24 GB GPU slice, and opens one server session per episode. The local GPU is useful for controlled comparisons, but cannot reproduce competition hardware exactly. Before testing variants, preserve the baseline image/digest and its result artifacts; package all candidate dependencies and weights offline. Do not spend the once-per-UTC-day official submission on an unvalidated change.
+Constraints from the competition guide: the runtime has no network, gets one 24 GB GPU slice, and opens one server session per episode. The local GPU is useful for controlled comparisons, but cannot reproduce competition hardware exactly. Before testing variants, preserve the baseline image/digest and its result artifacts; package all candidate dependencies and weights offline. Official submissions remain approval-based; verify the current competition quota before any submission.
 
 ## Run plan
 
