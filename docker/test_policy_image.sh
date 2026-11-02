@@ -19,7 +19,7 @@ gpu_flags=()
 limit=900
 if [ "${1:-}" = --gpu ]; then
   # The platform gives the image one GPU, so a model that spreads over more GPUs must fail here too.
-  gpu_flags=(--gpus "device=${POLICY_TEST_GPU:-0}")
+  gpu_flags=(--device "nvidia.com/gpu=${POLICY_TEST_GPU:-0}")
   limit=600
   shift
 fi
@@ -46,11 +46,19 @@ if [ "$(uname -s)" != Linux ] || [ "$(docker version -f '{{.Server.Arch}}')" != 
 fi
 # The script calls the container's address on its network. Rootless Docker keeps that address in its own
 # namespace, Docker Desktop keeps it in a VM, and an internal network publishes no port.
-if docker info -f '{{json .SecurityOptions}}' | grep -q 'name=rootless' ||
-  [ "$(docker info -f '{{.OperatingSystem}}')" = 'Docker Desktop' ]; then
+if [ "$(docker info -f '{{.OperatingSystem}}')" = 'Docker Desktop' ]; then
   echo "This Docker is rootless or Docker Desktop, and the host cannot reach the container." >&2
   echo "Run the test with the system Docker Engine." >&2
   exit 1
+fi
+# In rootless mode, probe from the engine network namespace, outside the policy container.
+if docker info -f '{{json .SecurityOptions}}' | grep -q 'name=rootless'; then
+  state_dir="${POLICY_TEST_ROOTLESS_STATE:?Set POLICY_TEST_ROOTLESS_STATE to the task engine rootlesskit directory}"
+  child_pid=$(cat "$state_dir/child_pid")
+  curl() {
+    nsenter --user="/proc/$child_pid/ns/user" --mount="/proc/$child_pid/ns/mnt" \
+      --preserve-credentials nsenter --net="$state_dir/netns" /usr/bin/curl "$@"
+  }
 fi
 # A network of this test alone: a container on a shared network could get files from the other containers on it.
 network="policy-test-$(od -An -N4 -tx1 /dev/urandom | tr -d ' \n')"
@@ -67,7 +75,7 @@ cleanup() {
 docker network create --internal "$network" >/dev/null
 trap 'cleanup "$body" "$curl_errors" "$network" "$cid"' EXIT
 cid=$(docker run -d --pull=always --network "$network" --cap-drop ALL --security-opt no-new-privileges \
-  "${gpu_flags[@]}" --cpus=4 --memory=28g --memory-swap=28g -e XLA_PYTHON_CLIENT_PREALLOCATE=false -e XLA_PYTHON_CLIENT_MEM_FRACTION=0.16 -e "$token_env=$token" "$image" "$@")
+  "${gpu_flags[@]}" --memory=28g --memory-swap=28g -e XLA_PYTHON_CLIENT_PREALLOCATE=false -e XLA_PYTHON_CLIENT_MEM_FRACTION=0.16 -e "$token_env=$token" "$image" "$@")
 ip=$(docker inspect -f "{{(index .NetworkSettings.Networks \"$network\").IPAddress}}" "$cid")
 
 # A socket that listens on port $2 of 127.0.0.1 or ::1, in /proc/net/tcp of the container $1. The platform cannot
