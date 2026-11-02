@@ -36,8 +36,9 @@ def environment():
            'NUMBA_CACHE_DIR': str(ROOT / 'cache/numba'), 'JAX_COMPILATION_CACHE_DIR': str(ROOT / 'cache/jax'),
            'UV_PYTHON_INSTALL_DIR': str(ROOT / 'data/uv/python'), 'HF_HOME': str(ROOT / 'models/huggingface'),
            'MLSPACES_ASSETS_DIR': str(ROOT / 'models/molmospaces/assets'),
-           'MLSPACES_CACHE_DIR': str(ROOT / 'cache/molmospaces'), 'CUDA_VISIBLE_DEVICES': GPU,
-           'MUJOCO_GL': 'egl', 'EGL_PLATFORM': 'surfaceless', 'LIBGL_ALWAYS_SOFTWARE': '1'}
+           'MLSPACES_CACHE_DIR': str(ROOT / 'cache/molmospaces'), 'CUDA_VISIBLE_DEVICES': '1',
+           # Probed EGL enumeration differs from CUDA: EGL0 is this host's RTX PRO6000.
+           'MUJOCO_EGL_DEVICE_ID': '0', 'MUJOCO_GL': 'egl', 'EGL_PLATFORM': 'surfaceless'}
     return env
 
 

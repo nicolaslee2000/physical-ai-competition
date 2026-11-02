@@ -36,7 +36,9 @@ class HarnessTests(unittest.TestCase):
             self.assertNotIn(key, env)
         for key in ('PHYSICAL_AI_CACHE_DIR', 'TMPDIR', 'HF_HOME', 'UV_CACHE_DIR', 'MLSPACES_CACHE_DIR'):
             harness.owned(env[key])
-        self.assertEqual(env['CUDA_VISIBLE_DEVICES'], harness.GPU)
+        self.assertEqual(env['CUDA_VISIBLE_DEVICES'], '1')
+        self.assertEqual(env['MUJOCO_EGL_DEVICE_ID'], '0')
+        self.assertNotIn('LIBGL_ALWAYS_SOFTWARE', env)
 
     def test_dry_run_has_no_process_or_network_calls(self):
         with patch.object(sys, 'argv', ['local_eval.py']), patch('subprocess.Popen') as spawn, \
