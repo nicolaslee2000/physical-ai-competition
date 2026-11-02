@@ -21,3 +21,5 @@ All server state is under `/opt/hderc-internal/nick/physical-ai-competition/`. T
 The guard also preserves at least 60 GiB of free filesystem space. Initial dependencies are prepared by `control/bootstrap.sh`; `control/probe-network.sh` verifies rootless internal-network namespace connectivity and denied egress without loading the model.
 
 25% is a conservative stop threshold protecting the requested 20% reserve. There is no transactional account-wide percentage cap: usage can update late and other chats share it. Bounded workers and repeated live checks reduce the chance of crossing the reserve; an exact cutoff cannot be guaranteed.
+
+The simulator command also enters a private mount namespace with a task-owned resolver file (`config/ns-resolv.conf`); this avoids the host-only systemd DNS stub inside the rootless network. Host DNS configuration is never edited. The policy remains on its separate internal network with egress blocked.

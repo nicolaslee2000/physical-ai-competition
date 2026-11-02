@@ -92,7 +92,10 @@ class HarnessTests(unittest.TestCase):
             command = harness.namespace_command(['/usr/bin/curl', 'target'])
         self.assertEqual(command, ['/usr/bin/nsenter', '--user=/proc/1234/ns/user',
                                   '--mount=/proc/1234/ns/mnt', '--preserve-credentials',
-                                  '/usr/bin/nsenter', f'--net={harness.ROOT}/runtime/dockerd-rootless/netns',
+                                  '/usr/bin/unshare', '--mount', '--propagation', 'private', '/bin/sh',
+                                  f'{harness.ROOT}/control/engine-net-inner.sh',
+                                  f'{harness.ROOT}/runtime/dockerd-rootless/netns',
+                                  f'{harness.ROOT}/config/ns-resolv.conf',
                                   '/usr/bin/curl', 'target'])
         for pid in ('', '1', '0', '../escape', '123;echo'):
             with patch.object(Path, 'read_text', return_value=pid), self.assertRaises(ValueError):

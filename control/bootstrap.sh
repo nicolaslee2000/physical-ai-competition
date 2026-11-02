@@ -4,6 +4,8 @@ task_root=$(cd "$(dirname "$0")/.." && pwd)
 python3 "$task_root/control/guard.py" check
 cd "$task_root"
 mkdir -p bin tmp cache/uv data/uv/python models/molmospaces/assets cache/molmospaces
+mkdir -p config
+printf 'nameserver 1.1.1.1\nnameserver 9.9.9.9\noptions timeout:2 attempts:2\n' > config/ns-resolv.conf
 export TMPDIR="$task_root/tmp" UV_CACHE_DIR="$task_root/cache/uv"
 export UV_PYTHON_INSTALL_DIR="$task_root/data/uv/python"
 export PHYSICAL_AI_CACHE_DIR="$task_root/cache/positronic"

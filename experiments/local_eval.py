@@ -77,7 +77,9 @@ def namespace_command(command):
         raise ValueError('Invalid dedicated rootless daemon child PID')
     return ['/usr/bin/nsenter', f'--user=/proc/{child_pid}/ns/user',
             f'--mount=/proc/{child_pid}/ns/mnt', '--preserve-credentials',
-            '/usr/bin/nsenter', f'--net={runtime / "netns"}', *command]
+            '/usr/bin/unshare', '--mount', '--propagation', 'private', '/bin/sh',
+            str(ROOT / 'control/engine-net-inner.sh'), str(runtime / 'netns'),
+            str(ROOT / 'config/ns-resolv.conf'), *command]
 
 
 def policy_address(docker, name, network, env):
