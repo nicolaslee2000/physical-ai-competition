@@ -61,6 +61,14 @@ def bounded(cmd, log, env, timeout, cwd):
 
 
 
+def image_identity(image):
+    if re.fullmatch(r'sha256:[a-f0-9]{64}', image):
+        return 'local-config-id'
+    if re.fullmatch(r'[a-zA-Z0-9./:_-]+@sha256:[a-f0-9]{64}', image):
+        return 'registry-manifest-digest'
+    raise ValueError('Use a pinned registry manifest digest or exact local sha256 image ID')
+
+
 def namespace_command(command):
     """Enter only this task engine's user/mount namespace, then its network namespace."""
     runtime = ROOT / 'runtime/dockerd-rootless'
@@ -109,6 +117,9 @@ def main():
     python = owned(config.get('python', str(repo / '.venv/bin/python')))
     engine = ROOT / 'docker/engine.sh'
     docker = ['bash', str(engine)]
+    eval_name = config.get('eval', 'molmo.franka_pick_mini')
+    if eval_name not in ('molmo.franka_pick_mini_smoke', 'molmo.franka_pick_mini'):
+        raise ValueError('Only the two public Molmo practice evals are allowed')
     candidates = config['policies']
     if not 2 <= len(candidates) <= 5 or candidates[0]['name'] != 'baseline':
         raise ValueError('Provide baseline first and 1–4 candidates')
@@ -116,14 +127,13 @@ def main():
     if len(set(names)) != len(names) or any(not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,39}', name) for name in names):
         raise ValueError('Policy names must be unique lowercase slugs')
     for row in candidates:
-        if not re.fullmatch(r'[a-zA-Z0-9./:_-]+@sha256:[a-f0-9]{64}', row['image']):
-            raise ValueError('Pin every image by sha256 digest before running')
+        row['identity_type'] = image_identity(row['image'])
     timeout = config.get('eval_timeout_s', 3600)
     ready_timeout = config.get('ready_timeout_s', 600)
     if not 60 <= timeout <= 7200 or not 10 <= ready_timeout <= 1200:
         raise ValueError('Timeouts outside allowed bounds')
     plan = {'root': str(ROOT), 'gpu': GPU, 'policies': candidates,
-            'eval': 'molmo.franka_pick_mini', 'holdout': [5, *range(7, 21)],
+            'eval': eval_name, 'holdout': [5, *range(7, 21)] if eval_name == 'molmo.franka_pick_mini' else [],
             'worst_case_seconds': len(candidates) * (timeout + ready_timeout + 240)}
     print(json.dumps(plan, indent=2), flush=True)
     if not args.execute:
@@ -168,7 +178,7 @@ def main():
             name = 'physical-ai-eval-' + uuid.uuid4().hex[:12]
             network = name + '-internal'
             status = {'name': row['name'], 'image': row['image'], 'status': 'failed',
-                      'container_name': name, 'network_name': network}
+                      'container_name': name, 'network_name': network, 'identity_type': row['identity_type']}
             try:
                 bounded([*docker, 'network', 'create', '--internal', network], run / 'network.log', env, 15, ROOT)
                 cmd = [*docker, 'run', '-d', '--rm', '--pull=never', '--name', name,
@@ -186,11 +196,11 @@ def main():
                     if time.monotonic() >= until:
                         raise TimeoutError('Actual policy container readiness timeout')
                     time.sleep(2)
-                bounded(namespace_command([str(binary), 'eval', 'run', '--eval=molmo.franka_pick_mini', '--policy=.remote',
+                bounded(namespace_command([str(binary), 'eval', 'run', f'--eval={eval_name}', '--policy=.remote',
                          f'--policy.address.host={address}', '--policy.address.port=8000', '--timing',
                          f'--output_dir={run / "episodes"}']), run / 'eval.log', env, timeout, repo)
                 bounded(namespace_command([str(binary), 'eval', 'timing-report', f'--run_dir={run / "episodes"}']), run / 'timing.log', env, 60, repo)
-                bounded([str(python), str(ROOT / 'experiments/summarize_recordings.py'), '--repo', str(repo), '--run-dir', str(run)],
+                bounded([str(python), str(ROOT / 'experiments/summarize_recordings.py'), '--repo', str(repo), '--run-dir', str(run), '--eval', eval_name],
                         run / 'validation.log', env, 60, repo)
                 status.update(status='complete', metrics=json.loads((run / 'metrics.json').read_text()))
             except (Exception, KeyboardInterrupt) as error:

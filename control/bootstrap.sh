@@ -19,7 +19,7 @@ if [ ! -d "$task_root/positronic/.git" ]; then
   git -C "$task_root/positronic" checkout --detach 00fdd933f22158a9cbe6d97c5b19c2935df35c1b
 fi
 python3 "$task_root/experiments/prepare_cache_patch.py"
-uv sync --project "$task_root/positronic" --locked --managed-python --python 3.13 --no-dev
+uv sync --project "$task_root/positronic" --locked --managed-python --python 3.13 --no-dev --extra telemetry
 python3 "$task_root/control/guard.py" check
 # Prepare the pinned simulator environment under the patched task cache path.
 "$task_root/positronic/.venv/bin/python" -c 'from positronic.simulator.molmo_spaces.launcher import ensure_molmo_venv; print(ensure_molmo_venv())'
