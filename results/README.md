@@ -12,8 +12,13 @@ The five development episodes were identical across policies; all were scored.
 Only the action horizon changed. Both variants picked up the tissue box and
 tissue in episodes 3 and 4; kettle, remote and ladle episodes remained failures.
 The five-episode development sample is too small to establish a general gain.
-Inference figures cover recorded W_pass calls on the local RTX PRO 6000;
-they exclude warmup and do not establish maximum latency or competition timing.
+Inference figures cover recorded W_pass calls on the local RTX PRO 6000,
+including each episode's first call; server startup before the pass is excluded.
+The closed-span audit found maxima of 100.6, 122.6 and 97.8 ms respectively.
+This establishes observed local latency for one session at a time, not a
+competition timing guarantee or multi-session qualification. See the
+[latency audit](horizon-development-latency-20261102.json); its first-call
+exclusion is an operational label, not a measurement of compiler warmup.
 
 The 6/15 s candidate was frozen for a paired 20-episode validation against the
 baseline, with 15 previously unused episodes reported separately. The two

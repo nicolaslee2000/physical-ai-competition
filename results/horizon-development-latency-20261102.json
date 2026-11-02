@@ -1,0 +1,104 @@
+{
+  "baseline": {
+    "trace_complete": true,
+    "closed_episodes": 5,
+    "first_inference": {
+      "start_unix_ns": 1793655149765877717,
+      "duration_ms": 100.567002,
+      "episode_index": 0,
+      "molmo_episode_index": 0,
+      "episode_span_id": "c0b92f2d72ed24f1",
+      "span_id": "8573a71afbdfd111"
+    },
+    "observed_all": {
+      "calls": 85,
+      "p50_ms": 67.288321,
+      "p95_ms": 69.30967820000001,
+      "max_ms": 100.567002
+    },
+    "observed_warmup": {
+      "calls": 1,
+      "p50_ms": 100.567002,
+      "p95_ms": 100.567002,
+      "max_ms": 100.567002
+    },
+    "observed_steady": {
+      "calls": 84,
+      "p50_ms": 67.241085,
+      "p95_ms": 69.1813866,
+      "max_ms": 71.373219
+    },
+    "warmup_definition": "first 1 chronological run calls; operational exclusion, not measured compilation",
+    "observed_all_calls_within_15s": true,
+    "scope": "client policy.infer round trip, including server/protocol wait; image preparation excluded; no official-runtime guarantee",
+    "completeness_limit": "closed-span audit only; a silently lost inference span cannot be proven absent without an independent call counter"
+  },
+  "horizon6": {
+    "trace_complete": true,
+    "closed_episodes": 5,
+    "first_inference": {
+      "start_unix_ns": 1793655383231820783,
+      "duration_ms": 99.881731,
+      "episode_index": 0,
+      "molmo_episode_index": 0,
+      "episode_span_id": "9cd1bc9cfc09243e",
+      "span_id": "5abd0cc02300b304"
+    },
+    "observed_all": {
+      "calls": 63,
+      "p50_ms": 66.784863,
+      "p95_ms": 69.7356952,
+      "max_ms": 122.621745
+    },
+    "observed_warmup": {
+      "calls": 1,
+      "p50_ms": 99.881731,
+      "p95_ms": 99.881731,
+      "max_ms": 99.881731
+    },
+    "observed_steady": {
+      "calls": 62,
+      "p50_ms": 66.78289050000001,
+      "p95_ms": 69.1842606,
+      "max_ms": 122.621745
+    },
+    "warmup_definition": "first 1 chronological run calls; operational exclusion, not measured compilation",
+    "observed_all_calls_within_15s": true,
+    "scope": "client policy.infer round trip, including server/protocol wait; image preparation excluded; no official-runtime guarantee",
+    "completeness_limit": "closed-span audit only; a silently lost inference span cannot be proven absent without an independent call counter"
+  },
+  "horizon10": {
+    "trace_complete": true,
+    "closed_episodes": 5,
+    "first_inference": {
+      "start_unix_ns": 1793655575295190164,
+      "duration_ms": 97.838441,
+      "episode_index": 0,
+      "molmo_episode_index": 0,
+      "episode_span_id": "71bfff5c55e63dd3",
+      "span_id": "62239bd76cbf74b2"
+    },
+    "observed_all": {
+      "calls": 75,
+      "p50_ms": 66.071581,
+      "p95_ms": 69.2447898,
+      "max_ms": 97.838441
+    },
+    "observed_warmup": {
+      "calls": 1,
+      "p50_ms": 97.838441,
+      "p95_ms": 97.838441,
+      "max_ms": 97.838441
+    },
+    "observed_steady": {
+      "calls": 74,
+      "p50_ms": 66.0292325,
+      "p95_ms": 68.84448485,
+      "max_ms": 71.650295
+    },
+    "warmup_definition": "first 1 chronological run calls; operational exclusion, not measured compilation",
+    "observed_all_calls_within_15s": true,
+    "scope": "client policy.infer round trip, including server/protocol wait; image preparation excluded; no official-runtime guarantee",
+    "completeness_limit": "closed-span audit only; a silently lost inference span cannot be proven absent without an independent call counter"
+  }
+}
