@@ -18,6 +18,6 @@ The existing chat heartbeat `watch-physical-ai-baseline-evaluation` is extended 
 
 All server state is under `/opt/hderc-internal/nick/physical-ai-competition/`. Task-owned user units are `nick-physical-ai-docker`, `nick-physical-ai-eval`, `nick-physical-ai-watchdog`, and `nick-physical-ai-deadline`. The shared production Docker engine is never used. The watchdog and timer are transient OS scheduling metadata; their scripts/logs/model files are within the task directory.
 
-The guard also preserves at least 60 GiB of free filesystem space. Initial dependencies are prepared by `control/bootstrap.sh`; `control/probe-network.sh` verifies rootless internal-network port forwarding and denied egress without loading the model.
+The guard also preserves at least 60 GiB of free filesystem space. Initial dependencies are prepared by `control/bootstrap.sh`; `control/probe-network.sh` verifies rootless internal-network namespace connectivity and denied egress without loading the model.
 
 25% is a conservative stop threshold protecting the requested 20% reserve. There is no transactional account-wide percentage cap: usage can update late and other chats share it. Bounded workers and repeated live checks reduce the chance of crossing the reserve; an exact cutoff cannot be guaranteed.

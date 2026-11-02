@@ -1,0 +1,6 @@
+# Build from this directory with the pinned baseline image intact, including offline weights.
+FROM positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f
+LABEL org.opencontainers.image.description="Team Nick pi0.5 DROID; isolated 6/15 s action horizon experiment"
+
+# Exact, fail-closed edit of the DROID pipeline default; no runtime flags or dependency changes.
+RUN /positronic/.venv/bin/python -c "from pathlib import Path; p=Path('/positronic/positronic/vendors/openpi/server.py'); s=p.read_text(); old='droid_pipe = pipeline.override(codec=codecs.droid, ee_frame=None, horizon_sec=8 / 15)'; new='droid_pipe = pipeline.override(codec=codecs.droid, ee_frame=None, horizon_sec=6 / 15)'; assert s.count(old)==1, f'expected exactly one baseline droid_pipe line, found {s.count(old)}'; p.write_text(s.replace(old,new))"

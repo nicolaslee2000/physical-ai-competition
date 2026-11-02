@@ -46,6 +46,44 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(len(plan['holdout']), 15)
         self.assertEqual(plan['gpu'], harness.GPU)
 
+    def test_namespace_prefix_uses_task_daemon_only(self):
+        with patch.object(Path, 'read_text', return_value='1234\n'):
+            command = harness.namespace_command(['/usr/bin/curl', 'target'])
+        self.assertEqual(command, ['/usr/bin/nsenter', '--user=/proc/1234/ns/user',
+                                  '--mount=/proc/1234/ns/mnt', '--preserve-credentials',
+                                  '/usr/bin/nsenter', f'--net={harness.ROOT}/runtime/dockerd-rootless/netns',
+                                  '/usr/bin/curl', 'target'])
+        for pid in ('', '1', '0', '../escape', '123;echo'):
+            with patch.object(Path, 'read_text', return_value=pid), self.assertRaises(ValueError):
+                harness.namespace_command(['command'])
+
+    def test_policy_address_comes_from_own_network(self):
+        response = subprocess.CompletedProcess([], 0, stdout=json.dumps({
+            'own-network': {'IPAddress': '172.25.0.2'}, 'unrelated': {'IPAddress': '172.30.0.3'}}))
+        with patch('subprocess.run', return_value=response) as run:
+            self.assertEqual(harness.policy_address(['bash', 'engine.sh'], 'owned-container', 'own-network', {}), '172.25.0.2')
+        self.assertEqual(run.call_args.args[0][-1], 'owned-container')
+        response.stdout = '{"own-network": {"IPAddress": "127.0.0.1"}}'
+        with patch('subprocess.run', return_value=response), self.assertRaises(ValueError):
+            harness.policy_address(['bash', 'engine.sh'], 'owned-container', 'own-network', {})
+
+    def test_readiness_requires_actual_ip_200_and_contract_alive(self):
+        for output, expected in (('{"alive_seconds": null}\n200', True),
+                                 ('{"alive_seconds": 1}\n200', True),
+                                 ('{"alive_seconds": 1.5}\n200', False),
+                                 ('{"alive_seconds": true}\n200', False),
+                                 ('{"alive_seconds": 1}\n404', False),
+                                 ('unrelated service\n200', False),
+                                 ('{"alive_seconds": "1"}\n200', False),
+                                 ('{"status": "ok"}\n200', False)):
+            response = subprocess.CompletedProcess([], 0, stdout=output)
+            with patch.object(Path, 'read_text', return_value='1234'), patch('subprocess.run', return_value=response) as run:
+                self.assertEqual(harness.policy_ready('172.25.0.2', {}), expected)
+                command = run.call_args.args[0]
+                self.assertEqual(command[-1], 'http://172.25.0.2:8000/api/v1/keepalive')
+                self.assertEqual(command[0], '/usr/bin/nsenter')
+                self.assertIn('--noproxy', command)
+
     def test_timed_out_process_is_reaped(self):
         # Real short-lived child process verifies timeout cleanup without server resources.
         with tempfile.TemporaryDirectory(dir=HERE) as directory:

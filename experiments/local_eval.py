@@ -4,6 +4,7 @@ import argparse
 import datetime as dt
 import fcntl
 import json
+import ipaddress
 import os
 from pathlib import Path
 import re
@@ -11,7 +12,6 @@ import signal
 import subprocess
 import sys
 import time
-import urllib.request
 import uuid
 
 ROOT = Path('/opt/hderc-internal/nick/physical-ai-competition')
@@ -58,6 +58,44 @@ def bounded(cmd, log, env, timeout, cwd):
                 pass
             finally:
                 proc.wait()
+
+
+
+def namespace_command(command):
+    """Enter only this task engine's user/mount namespace, then its network namespace."""
+    runtime = ROOT / 'runtime/dockerd-rootless'
+    child_pid = (runtime / 'child_pid').read_text().strip()
+    if not child_pid.isdecimal() or int(child_pid) <= 1:
+        raise ValueError('Invalid dedicated rootless daemon child PID')
+    return ['/usr/bin/nsenter', f'--user=/proc/{child_pid}/ns/user',
+            f'--mount=/proc/{child_pid}/ns/mnt', '--preserve-credentials',
+            '/usr/bin/nsenter', f'--net={runtime / "netns"}', *command]
+
+
+def policy_address(docker, name, network, env):
+    inspected = subprocess.run([*docker, 'inspect', '--format', '{{json .NetworkSettings.Networks}}', name],
+                               env=env, capture_output=True, text=True, check=True, timeout=10)
+    address = ipaddress.ip_address(json.loads(inspected.stdout)[network]['IPAddress'])
+    if address.version != 4 or not address.is_private or address.is_loopback or address.is_unspecified:
+        raise ValueError('Policy has no private IPv4 address on its own internal network')
+    return str(address)
+
+
+def policy_ready(address, env):
+    """Probe the actual policy IP from the dedicated daemon namespace; require HTTP 200 + valid JSON."""
+    command = namespace_command(['/usr/bin/curl', '--silent', '--show-error', '--noproxy', '*',
+                                 '--max-time', '3', '--request', 'POST', '--write-out', '\n%{http_code}',
+                                 f'http://{address}:8000/api/v1/keepalive'])
+    try:
+        response = subprocess.run(command, env=env, capture_output=True, text=True, timeout=5)
+        body, status = response.stdout.rsplit('\n', 1)
+        payload = json.loads(body)
+        if not isinstance(payload, dict) or 'alive_seconds' not in payload:
+            return False
+        alive = payload['alive_seconds']
+        return response.returncode == 0 and status == '200' and (alive is None or type(alive) is int and alive >= 0)
+    except (OSError, ValueError, AttributeError, subprocess.TimeoutExpired):
+        return False
 
 
 def main():
@@ -129,33 +167,29 @@ def main():
             bounded([str(python), str(ROOT / 'control/guard.py'), 'check'], run / 'guard.log', env, 10, ROOT)
             name = 'physical-ai-eval-' + uuid.uuid4().hex[:12]
             network = name + '-internal'
-            status = {'name': row['name'], 'image': row['image'], 'status': 'failed'}
+            status = {'name': row['name'], 'image': row['image'], 'status': 'failed',
+                      'container_name': name, 'network_name': network}
             try:
                 bounded([*docker, 'network', 'create', '--internal', network], run / 'network.log', env, 15, ROOT)
                 cmd = [*docker, 'run', '-d', '--rm', '--pull=never', '--name', name,
                        '--device', f'nvidia.com/gpu={GPU}', '--network', network,
                        '--memory=28g', '--memory-swap=28g',
                        '-e', 'XLA_PYTHON_CLIENT_PREALLOCATE=false',
-                       '-e', 'XLA_PYTHON_CLIENT_MEM_FRACTION=0.16', '-p', '127.0.0.1:18080:8000',
+                       '-e', 'XLA_PYTHON_CLIENT_MEM_FRACTION=0.16',
                        '--tmpfs', '/tmp:rw,nosuid,size=4g', row['image']]
                 bounded(cmd, run / 'container-start.log', env, 30, ROOT)
+                address = policy_address(docker, name, network, env)
+                status['policy_address'] = address
+                status['container_name'] = name
                 until = time.monotonic() + ready_timeout
-                # Explicit proxy-free loopback request, no credential headers.
-                opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
-                while True:
-                    try:
-                        with opener.open(urllib.request.Request('http://127.0.0.1:18080/api/v1/keepalive', data=b'', method='POST'), timeout=3) as response:
-                            if 'alive_seconds' in json.load(response):
-                                break
-                    except (OSError, ValueError):
-                        pass
+                while not policy_ready(address, env):
                     if time.monotonic() >= until:
-                        raise TimeoutError('Policy readiness timeout')
+                        raise TimeoutError('Actual policy container readiness timeout')
                     time.sleep(2)
-                bounded([str(binary), 'eval', 'run', '--eval=molmo.franka_pick_mini', '--policy=.remote',
-                         '--policy.address.host=127.0.0.1', '--policy.address.port=18080', '--timing',
-                         f'--output_dir={run / "episodes"}'], run / 'eval.log', env, timeout, repo)
-                bounded([str(binary), 'eval', 'timing-report', f'--run_dir={run / "episodes"}'], run / 'timing.log', env, 60, repo)
+                bounded(namespace_command([str(binary), 'eval', 'run', '--eval=molmo.franka_pick_mini', '--policy=.remote',
+                         f'--policy.address.host={address}', '--policy.address.port=8000', '--timing',
+                         f'--output_dir={run / "episodes"}']), run / 'eval.log', env, timeout, repo)
+                bounded(namespace_command([str(binary), 'eval', 'timing-report', f'--run_dir={run / "episodes"}']), run / 'timing.log', env, 60, repo)
                 bounded([str(python), str(ROOT / 'experiments/summarize_recordings.py'), '--repo', str(repo), '--run-dir', str(run)],
                         run / 'validation.log', env, 60, repo)
                 status.update(status='complete', metrics=json.loads((run / 'metrics.json').read_text()))
