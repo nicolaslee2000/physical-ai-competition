@@ -46,11 +46,12 @@ The baseline is retained; there is no held-out gain. Baseline development perfor
 also varied between runs, reinforcing the need to report uncertainty.
 See `results/README.md` for exact identities, latency and revision limitations.
 
-After the active comparison completes, qualify baseline and finalist session
-lifecycle under denied egress with 2 then 12 sessions. A failed qualification
-blocks promotion and must be diagnosed before an official submission.
+Baseline and MolmoAct2 both passed offline session lifecycle checks with 2 then
+12 sessions. At 12 sessions, maxima were 0.739 s and 4.447 s respectively; sampled
+card memory stayed below 13 GiB. See `results/runtime-qualification-20261102.json`.
+These are local reliability observations, not official hardware guarantees.
 
-Then screen the official public MolmoAct2 DROID example on the same five
+The official public MolmoAct2 DROID example is now screening on the same five
 development episodes, using `experiments/plan-molmoact2-smoke.json`. This tests a
 different pretrained policy, not another action-horizon adjustment. The official
 recipe's `droid_3cam` default consumes both exterior slots plus wrist, which the

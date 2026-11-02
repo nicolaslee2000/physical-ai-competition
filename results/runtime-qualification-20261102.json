@@ -1,0 +1,83 @@
+{
+  "scope": "Offline local RTX PRO 6000 session lifecycle and observed queue-inclusive latency; not task score or official hardware guarantee. Two waves with two calls per session; unique server IDs, command validation, close acknowledgement and reopen verified. GPU/RAM peaks sampled every few seconds, not allocator maxima; GPU card total may include other users. Existing simulator clips finite grip to [0,1]; image unchanged.",
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+      "passed": true,
+      "stages": {
+        "2": {
+          "passed": true,
+          "sessions_per_wave": 2,
+          "waves": 2,
+          "calls": 8,
+          "p50_ms": 121.02443724870682,
+          "p95_ms": 154.63191228918728,
+          "max_ms": 170.04594393074512,
+          "protocol_versions": [
+            2
+          ],
+          "distinct_session_ids_verified": true,
+          "distinct_client_connections_verified": true
+        },
+        "12": {
+          "passed": true,
+          "sessions_per_wave": 12,
+          "waves": 2,
+          "calls": 48,
+          "p50_ms": 732.1691056713462,
+          "p95_ms": 737.7034371253103,
+          "max_ms": 738.9565659686923,
+          "protocol_versions": [
+            2
+          ],
+          "distinct_session_ids_verified": true,
+          "distinct_client_connections_verified": true
+        }
+      },
+      "sampled_gpu_card_peak_mib": 8932.0,
+      "sampled_container_ram_peak_bytes": 16138339614.72,
+      "grip_raw_min": 0.0,
+      "grip_raw_max": 1.0
+    },
+    {
+      "name": "molmoact2-droid",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "passed": true,
+      "stages": {
+        "2": {
+          "passed": true,
+          "sessions_per_wave": 2,
+          "waves": 2,
+          "calls": 8,
+          "p50_ms": 741.4507088251412,
+          "p95_ms": 758.3474526647478,
+          "max_ms": 761.0667515546083,
+          "protocol_versions": [
+            2
+          ],
+          "distinct_session_ids_verified": true,
+          "distinct_client_connections_verified": true
+        },
+        "12": {
+          "passed": true,
+          "sessions_per_wave": 12,
+          "waves": 2,
+          "calls": 48,
+          "p50_ms": 4360.64867535606,
+          "p95_ms": 4432.664141617715,
+          "max_ms": 4446.818380616605,
+          "protocol_versions": [
+            2
+          ],
+          "distinct_session_ids_verified": true,
+          "distinct_client_connections_verified": true
+        }
+      },
+      "sampled_gpu_card_peak_mib": 12738.0,
+      "sampled_container_ram_peak_bytes": 12777527705.6,
+      "grip_raw_min": -0.0078125,
+      "grip_raw_max": 0.0048828125
+    }
+  ]
+}

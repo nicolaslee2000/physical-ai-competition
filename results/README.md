@@ -32,8 +32,28 @@ Matching all simulator randomness has not been established. Inference p95 was
 69.1 ms baseline and 69.8 ms candidate; observed maxima were 100.4 and 99.9 ms.
 See [validation results](horizon-validation-20261102.json) and
 [paired episode analysis](horizon-paired-validation-20261102.json).
-Multi-session reliability qualification is running separately; no additional
+Multi-session reliability qualification completed separately; no additional
 official submission has been made.
+
+## Offline runtime qualification
+
+The unchanged baseline and public MolmoAct2 DROID image both passed 2-session
+and 12-session checks, including distinct server IDs, valid commands and
+acknowledged close/reopen. Each 12-session check used two waves and 48 inference
+calls under denied egress.
+
+| Policy | 12-session p95 | Observed maximum | Sampled GPU card peak |
+| --- | ---: | ---: | ---: |
+| π0.5 baseline | 0.738 s | 0.739 s | 8,932 MiB |
+| MolmoAct2 DROID | 4.433 s | 4.447 s | 12,738 MiB |
+
+These local round trips include queueing; the samples are below 15 seconds.
+Card-memory sampling can miss short peaks and includes any other card users.
+This does not reproduce the competition GPU or establish task-score gains.
+MolmoAct2 emits slightly negative initial gripper predictions; the existing
+simulator actuator clips finite grip to [0,1]. That behavior was preserved and
+recorded, with no image change. See the
+[runtime summary](runtime-qualification-20261102.json).
 
 ## Earlier development screen
 
