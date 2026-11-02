@@ -74,7 +74,7 @@ cleanup() {
 }
 docker network create --internal "$network" >/dev/null
 trap 'cleanup "$body" "$curl_errors" "$network" "$cid"' EXIT
-cid=$(docker run -d --pull=always --network "$network" --cap-drop ALL --security-opt no-new-privileges \
+cid=$(docker run -d --pull="${POLICY_TEST_PULL:-always}" --network "$network" --cap-drop ALL --security-opt no-new-privileges \
   "${gpu_flags[@]}" --memory=28g --memory-swap=28g -e XLA_PYTHON_CLIENT_PREALLOCATE=false -e XLA_PYTHON_CLIENT_MEM_FRACTION=0.16 -e "$token_env=$token" "$image" "$@")
 ip=$(docker inspect -f "{{(index .NetworkSettings.Networks \"$network\").IPAddress}}" "$cid")
 
