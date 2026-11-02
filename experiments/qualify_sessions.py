@@ -46,16 +46,21 @@ def validate_identity(url, image):
 
 def validate_commands(commands, keys, joint_type, np):
     if keys.ROBOT_COMMAND not in commands or keys.TARGET_GRIP not in commands:
-        raise ValueError('Expected DROID arm and gripper command channels')
+        raise CheckFailure('missing_droid_command_channels')
     arm = commands[keys.ROBOT_COMMAND]
     if not isinstance(arm, joint_type):
-        raise ValueError('DROID arm command must be native JointPosition')
+        raise CheckFailure('arm_command_not_joint_position')
     joints = np.asarray(arm.positions)
     grip = np.asarray(commands[keys.TARGET_GRIP])
     if joints.shape != (7,) or not np.isfinite(joints).all():
-        raise ValueError('Expected seven finite joint targets')
-    if grip.size != 1 or not np.isfinite(grip).all() or not 0 <= float(grip.reshape(-1)[0]) <= 1:
-        raise ValueError('Expected finite gripper target in [0,1]')
+        raise CheckFailure('joint_targets_not_seven_finite_values')
+    if grip.size != 1 or not np.isfinite(grip).all():
+        raise CheckFailure('grip_target_not_one_finite_value')
+    raw = float(grip.reshape(-1)[0])
+    # MolmoSpaces mapping.grip_command_to_actuator clips finite predictions to
+    # [0,1]. Report saturation rather than rejecting an executable model output.
+    return {'raw_grip': raw, 'actuator_grip': min(1.0, max(0.0, raw)),
+            'clipped': not 0 <= raw <= 1}
 
 
 def load_development(root):
@@ -127,7 +132,8 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
             wave_result = {'wave': wave, 'protocol_version': version, 'session_id': sid,
                            'connection_audit_id': uuid.uuid4().hex, 'connection_object_id': f'{os.getpid()}:{id(connection)}',
                            'synchronized_open_connection': False, 'connection_closed': False,
-                           'end_session_acknowledged': None, 'infer_ms': [], 'validated_command_steps': 0}
+                           'end_session_acknowledged': None, 'infer_ms': [], 'validated_command_steps': 0,
+                           'raw_grip_min': None, 'raw_grip_max': None, 'grip_clipped_steps': 0}
             result['waves'].append(wave_result)
             if version not in (1, 2, 3):
                 raise CheckFailure('unsupported_protocol')
@@ -162,9 +168,15 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
                 RemotePolicy._require_robot_commands(step)
                 if step.commands:
                     try:
-                        validate_commands(step.commands, keys, JointPosition, np)
-                    except (ValueError, TypeError) as error:
+                        observed = validate_commands(step.commands, keys, JointPosition, np)
+                    except CheckFailure:
+                        raise
+                    except (ValueError, TypeError):
                         raise CheckFailure('invalid_droid_commands') from None
+                    raw = observed['raw_grip']
+                    wave_result['raw_grip_min'] = raw if wave_result['raw_grip_min'] is None else min(raw, wave_result['raw_grip_min'])
+                    wave_result['raw_grip_max'] = raw if wave_result['raw_grip_max'] is None else max(raw, wave_result['raw_grip_max'])
+                    wave_result['grip_clipped_steps'] += int(observed['clipped'])
                     valid_steps += 1
                     wave_result['validated_command_steps'] = valid_steps
                 result['stage'] = 'inference'
@@ -232,6 +244,7 @@ def aggregate(rows, expected):
             'distinct_client_connections_verified': bool(connections_unique), 'protocol_versions': sorted(value for value in protocols if value is not None), 'sessions_per_wave': expected,
             'waves': 2, 'calls': len(values), 'p50_ms': quantile(.5), 'p95_ms': quantile(.95), 'max_ms': max(values) if values else None,
             'workers': rows, 'scope': 'observed client round trips incl server queue; synchronized open sessions, scheduling overlap not guaranteed',
+            'grip_execution_contract': 'finite scalar, clipped to [0,1] by the existing MolmoSpaces actuator mapping; raw extrema and clipping counts recorded per wave',
             'limitation': 'fresh runtime/stack and separate client connection objects check close/reopen; V1 exposes no server IDs or END_SESSION acknowledgment; V2/V3 require both; cannot prove absence of model state leaks or official hardware compliance'}
 
 
