@@ -17,6 +17,7 @@ user_runtime="/run/user/$(id -u)"
 cpu_list=$(python3 -c 'import os; print(",".join(map(str, sorted(os.sched_getaffinity(0))[:4])))')
 XDG_RUNTIME_DIR="$user_runtime" systemd-run --user --unit=nick-physical-ai-docker --collect \
   --property=Delegate=yes --property=MemoryMax=28G --property=MemorySwapMax=0 \
+  --property=TimeoutStopSec=15s --property=KillMode=control-group \
   --property=CPUQuota=400% \
   --property="StandardOutput=append:$task_root/logs/engine.log" \
   --property="StandardError=append:$task_root/logs/engine.log" \

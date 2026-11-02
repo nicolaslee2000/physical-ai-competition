@@ -1,5 +1,7 @@
 # Team Nick — Physical AI Competition
 
+The active overnight run ends **3 November 2026 at 08:30 Europe/Berlin**. See `control/OVERNIGHT.md`, `control/policy.json`, and `AGENTS.md` for worker models, the allowance reserve, isolated server jobs, and shutdown controls. Experimental scores are recorded only after actual simulator runs.
+
 Initial policy: the official Positronic π0.5 DROID baseline, pinned by image digest in `Dockerfile`.
 
 Build and publish:

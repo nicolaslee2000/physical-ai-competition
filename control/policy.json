@@ -1,0 +1,17 @@
+{
+  "run_name": "overnight-2026-11-02",
+  "deadline": "2026-11-03T08:30:00+01:00",
+  "stop_new_work_seconds_before_deadline": 120,
+  "stop_gpu_seconds_before_deadline": 45,
+  "usage_stop_remaining_percent": 25,
+  "usage_user_floor_percent": 20,
+  "usage_snapshot_max_age_seconds": 420,
+  "max_parallel_workers": 2,
+  "max_concurrent_gpu_jobs": 1,
+  "min_disk_free_bytes": 64424509440,
+  "worker_models": {"implementation": "gpt-6.1-sol", "analysis": "gpt-6-luna"},
+  "worker_reasoning": "medium",
+  "official_submission_requires_approval": true,
+  "server_root": "/opt/hderc-internal/nick/physical-ai-competition",
+  "gpu_uuid": "GPU-7c4310dd-d211-6c65-506c-2a74f693fe8b"
+}

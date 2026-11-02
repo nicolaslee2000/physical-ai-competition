@@ -4,3 +4,5 @@
 /cache/
 /storage/
 /logs/
+/state/
+__pycache__/
