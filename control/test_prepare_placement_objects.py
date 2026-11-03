@@ -9,6 +9,15 @@ objects=importlib.util.module_from_spec(spec);spec.loader.exec_module(objects)
 
 
 class ObjectRecoveryTests(unittest.TestCase):
+    def test_published_empty_mutex_is_valid_but_empty_mesh_is_not(self):
+        with tempfile.TemporaryDirectory() as directory:
+            mutex=Path(directory)/'asset.xml.lock';mutex.touch()
+            mesh=Path(directory)/'asset_visual.obj';mesh.touch()
+            self.assertTrue(objects.leaf_ready(mutex))
+            self.assertFalse(objects.leaf_ready(mesh))
+            mesh.write_text('v 0 0 0\n')
+            self.assertTrue(objects.leaf_ready(mesh))
+
     def test_exact_uid_archive_mapping(self):
         uid=objects.FIRST_UID
         self.assertEqual(objects.archive_for_objaverse(f'{uid}/{uid}_visual.obj'),f'objaverse_{uid}.tar.zst')

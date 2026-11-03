@@ -67,6 +67,12 @@ def archive_for_objaverse(relative):
     return f'objaverse_{uid}.tar.zst'
 
 
+def leaf_ready(path):
+    # The published object archives contain empty XML mutex files. Meshes,
+    # images and XML still require data; a listed *.lock file may be empty.
+    return path.is_file() and (path.stat().st_size > 0 or path.name.endswith('.lock'))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cohort', type=Path, default=ROOT / 'experiments/fresh-placement-cohort.json')
@@ -162,7 +168,7 @@ def main():
         source, package = row['source'], row['package']
         destination = CACHE / 'objects' / source / VERSIONS[source]
         paths = [destination / leaf for leaf in row['leaf_paths']]
-        if any(path.exists() and (not path.is_file() or path.stat().st_size == 0) for path in paths):
+        if any(path.exists() and not leaf_ready(path) for path in paths):
             raise ValueError('Ambiguous existing object leaf; preserve for explicit review')
         flag = destination / ('.' + package.replace('/', '__') + '_complete_extract')
         if flag.exists() and any(not path.exists() for path in paths):
@@ -170,7 +176,7 @@ def main():
                         'sha256': hashlib.sha256(flag.read_bytes()).hexdigest()}
             (archive / (source + '-' + package + '.marker.json')).write_text(json.dumps(metadata))
             flag.rename(archive / (source + '-' + flag.name))
-        if all(path.is_file() for path in paths) and flag.is_file():
+        if all(leaf_ready(path) for path in paths) and flag.is_file():
             results.append({'source': source, 'package': package, 'status': 'already_present', 'GETs': 0})
         else:
             policy = json.loads((ROOT / 'control/policy.json').read_text())
@@ -188,7 +194,8 @@ def main():
                         manager.install_packages('objects', {source: [package]})
                         child.send({'passed': True, 'GETs': storage.gets})
                     except BaseException as error:
-                        child.send({'passed': False, 'GETs': storage.gets, 'error_type': type(error).__name__})
+                        child.send({'passed': False, 'GETs': storage.gets, 'error_type': type(error).__name__,
+                                    'error_message': str(error)[:1000]})
                     finally:
                         storage.http.close(); child.close()
                 process = context.Process(target=install); process.start(); child.close()
@@ -199,10 +206,14 @@ def main():
                     raise TimeoutError('Object attempt exceeded 15 minutes')
                 outcome = parent.recv() if parent.poll() else {'passed': False, 'error_type': 'MissingWorkerResult'}
                 parent.close()
+                (archive / 'last-attempt.json').write_text(json.dumps({'source': source, 'package': package, 'attempt': attempt + 1, **outcome}, indent=2) + '\n')
                 if outcome['passed']:
                     passed = True; break
                 time.sleep(2)
-            if not passed or any(not path.is_file() or path.stat().st_size == 0 for path in paths) or not flag.is_file():
+            if not passed or any(not leaf_ready(path) for path in paths) or not flag.is_file():
+                (archive / 'incomplete-package.json').write_text(json.dumps({'source': source, 'package': package,
+                    'worker_passed': passed, 'marker_present': flag.is_file(), 'expected_leaves': len(paths),
+                    'missing_leaves': [str(path) for path in paths if not leaf_ready(path)]}, indent=2) + '\n')
                 raise RuntimeError('Selected object package incomplete after bounded retries')
             results.append({'source': source, 'package': package, 'status': 'prepared', 'attempts': attempt + 1})
         (archive / 'results.json').write_text(json.dumps(results, indent=2) + '\n')
