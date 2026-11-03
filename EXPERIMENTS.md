@@ -4,7 +4,10 @@
 and methods including public datasets, and set an official success target of
 at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
 approvals remain unchanged. The prior stop was explicitly rearmed. The fresh
-pick20 MolmoAct2 comparison is active; placement10 follows. See `RESEARCH.md`.
+pick20 MolmoAct2 comparison completed: **8/20 vs baseline4/20**, zero unscored,
+six improved/two regressed, exact McNemar p=0.289. This is a small local picking
+sample and does not establish the official target. Placement10 is now active.
+See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
 hashes; indices, seeds and source contents did not change. Current cohort SHA:
 pick `d31b93cf300e347b86323cf42bf16aaca6ac016b532e7ca5140eeec34414231d`,
@@ -63,7 +66,8 @@ These are local reliability observations, not official hardware guarantees.
 
 The official public MolmoAct2 DROID example scored **4/5 development successes**
 versus the repeated baseline's **1/5**, using `experiments/plan-molmoact2-smoke.json`.
-Fresh validation has not run; this does not yet establish improvement. This tests a
+Fresh pick validation scored8/20 vs baseline4/20; placement assessment is pending.
+This does not yet establish an official improvement. This tests a
 different pretrained policy, not another action-horizon adjustment. The official
 recipe's `droid_3cam` default consumes both exterior slots plus wrist, which the
 current local adapter supplies. Keep all model defaults unchanged. Pull only

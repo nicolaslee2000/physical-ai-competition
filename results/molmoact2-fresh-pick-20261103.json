@@ -1,0 +1,297 @@
+{
+  "scope": "Fresh local public picking validation; not official competition score",
+  "cohort_sha256": "d31b93cf300e347b86323cf42bf16aaca6ac016b532e7ca5140eeec34414231d",
+  "episodes_per_policy": 20,
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+      "scores": {
+        "primary": 0.2,
+        "episodes": 20,
+        "unscored": 0
+      },
+      "successes": 4,
+      "wilson95": [
+        0.08065766257979806,
+        0.41601743225189364
+      ],
+      "cohort_timing": {
+        "0": {
+          "infer_calls": 162,
+          "infer_p50_ms": 67.146999,
+          "infer_p95_ms": 70.11970864999999,
+          "wall_s": 388.814299772,
+          "window": "W_pass"
+        },
+        "1": {
+          "infer_calls": 143,
+          "infer_p50_ms": 68.084987,
+          "infer_p95_ms": 71.0692741,
+          "wall_s": 278.507832666,
+          "window": "W_pass"
+        }
+      }
+    },
+    {
+      "name": "molmoact2-droid",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "scores": {
+        "primary": 0.4,
+        "episodes": 20,
+        "unscored": 0
+      },
+      "successes": 8,
+      "wilson95": [
+        0.21880653237281705,
+        0.6134184992377469
+      ],
+      "cohort_timing": {
+        "0": {
+          "infer_calls": 106,
+          "infer_p50_ms": 378.448373,
+          "infer_p95_ms": 388.052396,
+          "wall_s": 308.83090682,
+          "window": "W_pass"
+        },
+        "1": {
+          "infer_calls": 119,
+          "infer_p50_ms": 378.88791100000003,
+          "infer_p95_ms": 387.9796028,
+          "wall_s": 274.593379835,
+          "window": "W_pass"
+        }
+      }
+    }
+  ],
+  "paired": {
+    "both_success": 2,
+    "both_fail": 10,
+    "improved": 6,
+    "regressed": 2
+  },
+  "mcnemar_exact_two_sided_p": 0.2890625,
+  "per_episode": [
+    {
+      "index": 73,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 103,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 162,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 206,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 243,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 253,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 445,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 475,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 1.0,
+      "molmoact2": 1.0,
+      "outcome": "both_success"
+    },
+    {
+      "index": 488,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 553,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 1.0,
+      "molmoact2": 0.0,
+      "outcome": "regressed"
+    },
+    {
+      "index": 611,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 673,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 1.0,
+      "molmoact2": 1.0,
+      "outcome": "both_success"
+    },
+    {
+      "index": 728,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 1.0,
+      "molmoact2": 0.0,
+      "outcome": "regressed"
+    },
+    {
+      "index": 742,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 753,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 764,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 1.0,
+      "outcome": "improved"
+    },
+    {
+      "index": 897,
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 907,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 934,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    },
+    {
+      "index": 987,
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ],
+      "baseline": 0.0,
+      "molmoact2": 0.0,
+      "outcome": "both_fail"
+    }
+  ],
+  "caveat": "Small single-trial sample; candidate gain uncertain, placement diagnostic still pending. No official target or full-task improvement established."
+}

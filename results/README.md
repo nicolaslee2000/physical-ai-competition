@@ -1,16 +1,24 @@
 # Local development screen — 2 November 2026
 
-## Campaign resumed; fresh validation running
+## Fresh picking result; placement test running
 
 On 3 November the user explicitly resumed with no time deadline and a target of
 at least 50% official success. The quota reserve remains. The fixed controller
-is active and the fresh MolmoAct2 comparison is running; see [RESEARCH.md](../RESEARCH.md).
+is active; see [RESEARCH.md](../RESEARCH.md).
+
+On the frozen **20 previously unused public picking episodes**, MolmoAct2 scored
+**8/20 (40%)**, versus **4/20 (20%)** for the paired baseline; all episodes were
+scored. Six cases improved and two regressed. The exact two-sided McNemar
+p-value is 0.289, so this small sample gives uncertain evidence for a general
+gain. These are local picking results, not official scores or placement results.
+The separate frozen ten-episode placement diagnostic is running.
+See the [fresh paired result](molmoact2-fresh-pick-20261103.json).
 
 MolmoAct2 DROID completed **4/5 development tasks**, versus **1/5** for the repeated
 baseline, with zero unscored episodes. Local inference p95 was 380.8 ms versus
 68.0 ms. See [the development result](molmoact2-development-20261102.json).
-This five-episode result is preliminary; fresh validation has not run, so the
-approved baseline remains retained.
+This earlier five-episode development result is preliminary. The approved
+baseline remains retained while the full candidate assessment proceeds.
 
 Previously, the watchdog stopped the campaign at 22:36:30 UTC when the coordinator failed to
 mirror a usage refresh during a long turn. Allowance was still 63%. Task jobs
