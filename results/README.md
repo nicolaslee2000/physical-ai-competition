@@ -1,6 +1,10 @@
 # Local development screen — 2 November 2026
 
-## Campaign stopped; fresh validation pending
+## Campaign resumed; fresh validation running
+
+On 3 November the user explicitly resumed with no time deadline and a target of
+at least 50% official success. The quota reserve remains. The fixed controller
+is active and the fresh MolmoAct2 comparison is running; see [RESEARCH.md](../RESEARCH.md).
 
 MolmoAct2 DROID completed **4/5 development tasks**, versus **1/5** for the repeated
 baseline, with zero unscored episodes. Local inference p95 was 380.8 ms versus
@@ -8,20 +12,18 @@ baseline, with zero unscored episodes. Local inference p95 was 380.8 ms versus
 This five-episode result is preliminary; fresh validation has not run, so the
 approved baseline remains retained.
 
-The watchdog stopped the campaign at 22:36:30 UTC when the coordinator failed to
+Previously, the watchdog stopped the campaign at 22:36:30 UTC when the coordinator failed to
 mirror a usage refresh during a long turn. Allowance was still 63%. Task jobs
-and engine are stopped; the overnight automation was deleted. The refresh path
-has been fixed to mirror every live check immediately. See [HANDOFF.md](../HANDOFF.md)
-for the prepared validation and explicit-resume boundary.
+and engine were stopped, and the overnight automation was deleted. The refresh
+path now mirrors every live check immediately. The user authorized restarting;
+the new campaign automation is active. [HANDOFF.md](../HANDOFF.md) retains the history.
 
 ## Official baseline result
 
 Team Nick's approved π0.5 DROID baseline finished the official
 `molmo.competition_v2` evaluation at **19.375% success: 62/320 episodes**, with
-zero unscored episodes. It ranked **19th when checked at 22:23 UTC**; rankings
-can change. The run ended at 22:20:06 UTC.
-The platform has not yet published the stable replay/report link; it will be
-added when available. See the [public competition leaderboard](https://competition.phail.ai/)
+zero unscored episodes. It ranked **20th when checked on 3 November**; rankings can change. The run ended at 22:20:06 UTC.
+[Watch the stable public replay](https://app.positronic.ro/v/WKps7S_-qP89_bQ5kxbPhA/). See the [public competition leaderboard](https://competition.phail.ai/)
 and [saved result summary](official-baseline-20261102.json).
 The local practice experiments below use a different task set and are separate
 from this official result. No additional official submission has been made.

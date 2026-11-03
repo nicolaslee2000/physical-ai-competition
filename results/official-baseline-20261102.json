@@ -11,11 +11,11 @@
   "unscored": 0,
   "started_at": "2026-11-02T20:21:47.787290Z",
   "ended_at": "2026-11-02T22:20:06.165536Z",
-  "rank_when_checked": 19,
-  "rank_checked_at_utc": "2026-11-02T22:23:12.358964+00:00",
-  "replay": null,
+  "rank_when_checked": 20,
+  "rank_checked_at_utc": "2026-11-03T08:09:07.494868+00:00",
+  "replay": "https://app.positronic.ro/v/WKps7S_-qP89_bQ5kxbPhA/",
   "report": null,
-  "replay_status": "not yet published by platform; keep checking own ranking row",
+  "replay_status": "Stable public leaderboard replay published",
   "leaderboard": "https://competition.phail.ai/",
   "source": "Authenticated submission status and result artifact; public own ranking row. No signed artifact URLs included."
 }

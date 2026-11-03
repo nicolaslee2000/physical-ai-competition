@@ -1,5 +1,15 @@
 # Overnight experiment backlog (Nov 2–3)
 
+**Resumed 3 November:** the user removed the deadline, requested multiple models
+and methods including public datasets, and set an official success target of
+at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
+approvals remain unchanged. The prior stop was explicitly rearmed. The fresh
+pick20 MolmoAct2 comparison is active; placement10 follows. See `RESEARCH.md`.
+The cohort cache-location typo was corrected after checking both actual manifest
+hashes; indices, seeds and source contents did not change. Current cohort SHA:
+pick `d31b93cf300e347b86323cf42bf16aaca6ac016b532e7ca5140eeec34414231d`,
+placement `3f95af6784d3b25d5988a69db2e8f563dbed4af64ee0e340a02078faccb9920b`.
+
 ## Baseline and guardrails
 
 Keep the official π0.5 DROID image as the control: base image pinned in `Dockerfile`; submitted digest `ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda`. Submission `6167d92cf2009b1e` finished successfully: **62/320 successes (19.375%)**, zero unscored, ranked 19 when checked at 22:23 UTC. Stable replay publication is pending. `results/official-baseline-20261102.json` records the result. `validation.json` only establishes the earlier offline startup/readiness check; scored evidence is separate.

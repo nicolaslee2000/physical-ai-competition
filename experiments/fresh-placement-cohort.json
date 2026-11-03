@@ -5,7 +5,7 @@
   "benchmark": "molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark",
   "task_family": "Franka DROID pick and place next to",
   "manifest": {
-    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/molmospaces-bench-v2/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/benchmark.json",
+    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/procthor-objaverse/FrankaPickandPlaceNextToHardBench/FrankaPickandPlaceNextToHardBench_20260305_json_benchmark/benchmark.json",
     "sha256": "aaa121c71a6a5a575406e471e3202ba1ac0cd96049943aa9b7788cbdcbcc78a0",
     "episode_count": 1000,
     "task_text_placement_match_count": 1000,

@@ -5,7 +5,7 @@
   "benchmark": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
   "task_family": "DROID Franka pick mini",
   "manifest": {
-    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/benchmark.json",
+    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/benchmark.json",
     "sha256": "c22a7e4262d0b9e2fa073cba0fe4713f7f7a45235332de77149ee771822ca42b",
     "episode_count": 1000
   },

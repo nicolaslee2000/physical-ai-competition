@@ -92,8 +92,7 @@ def main():
         return
     if sys.platform != 'linux' or Path(__file__).resolve().parent != h.ROOT / 'experiments':
         raise ValueError('Execute only in isolated Linux task checkout')
-    if time.time() + plan['worst_case_seconds'] >= h.DEADLINE - 120:
-        raise ValueError('Conservative batch bound exceeds deadline reserve')
+    h.check_batch_deadline(plan['worst_case_seconds'])
     for path in (args.plan, args.cohort, args.blocklist):
         h.owned(path)
     manifest = h.owned(cohort['manifest']['server_path'])

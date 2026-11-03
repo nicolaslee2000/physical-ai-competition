@@ -1,5 +1,9 @@
 # Campaign stopped — 2 November, 22:36 UTC
 
+**Historical handoff:** superseded by the user's explicit 3 November resume with
+no time limit and a target of at least 50% official success. See `RESEARCH.md` and
+the current control policy. The original stop and evidence below are preserved.
+
 The server watchdog latched a stop at **22:36:30 UTC** because its usage snapshot
 expired. The coordinator continued checking live Codex usage but failed to mirror
 those checks during a long turn. Live allowance was still **63% remaining**.

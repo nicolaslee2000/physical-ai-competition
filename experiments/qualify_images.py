@@ -100,8 +100,7 @@ def monitor_resources(docker, name, env, destination, stop):
 def execute(plan):
     if sys.platform != 'linux' or Path(__file__).resolve().parent != h.ROOT / 'experiments':
         raise ValueError('Execute only from the isolated Linux task checkout')
-    if time.time() + plan['worst_case_seconds'] >= h.DEADLINE - 120:
-        raise ValueError('Conservative qualification plan cannot finish before deadline reserve')
+    h.check_batch_deadline(plan['worst_case_seconds'])
     env = dict(h.environment(), OPENBLAS_NUM_THREADS='1', OMP_NUM_THREADS='1')
     docker = ['bash', str(h.ROOT / 'docker/engine.sh')]
     python, repo = plan['python'], Path(plan['repo'])

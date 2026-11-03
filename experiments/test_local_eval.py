@@ -40,6 +40,21 @@ class HarnessTests(unittest.TestCase):
         self.assertEqual(env['MUJOCO_EGL_DEVICE_ID'], '0')
         self.assertNotIn('LIBGL_ALWAYS_SOFTWARE', env)
 
+    def test_optional_policy_deadline_and_invalid_limits(self):
+        finite = {'deadline': '2026-11-03T07:30:00+00:00', 'stop_new_work_seconds_before_deadline': 120}
+        deadline = harness.dt.datetime.fromisoformat(finite['deadline']).timestamp()
+        self.assertEqual(harness.remaining_budget(finite, deadline - 3600), 3480)
+        self.assertEqual(harness.check_batch_deadline(60, finite, deadline - 3600), 3480)
+        with self.assertRaises(ValueError):
+            harness.check_batch_deadline(3480, finite, deadline - 3600)
+        self.assertIsNone(harness.check_batch_deadline(86400, {'deadline': None}, deadline + 86400))
+        for value in (False, 12, 'bad', '2026-11-03T07:30:00'):
+            with self.assertRaises(ValueError):
+                harness.check_batch_deadline(60, {**finite, 'deadline': value}, deadline)
+        for value in (-1, float('inf'), float('nan'), True):
+            with self.assertRaises(ValueError):
+                harness.check_batch_deadline(value, {'deadline': None})
+
     def test_dry_run_has_no_process_or_network_calls(self):
         with patch.object(sys, 'argv', ['local_eval.py']), patch('subprocess.Popen') as spawn, \
                 patch('subprocess.run') as run, contextlib.redirect_stdout(io.StringIO()) as output:

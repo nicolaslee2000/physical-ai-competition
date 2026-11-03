@@ -62,7 +62,7 @@ class WrapperTests(unittest.TestCase):
             self.assertEqual(wrapper.checked_report(path, 2), report)
 
     def test_deadline_refuses_before_docker(self):
-        with patch.object(wrapper.sys, 'platform', 'linux'), patch.object(Path, 'resolve', return_value=wrapper.h.ROOT / 'experiments/qualify_images.py'), patch.object(wrapper.time, 'time', return_value=wrapper.h.DEADLINE), patch('subprocess.run') as run:
+        with patch.object(wrapper.sys, 'platform', 'linux'), patch.object(Path, 'resolve', return_value=wrapper.h.ROOT / 'experiments/qualify_images.py'), patch.object(wrapper.h, 'check_batch_deadline', side_effect=ValueError('dated policy deadline')), patch('subprocess.run') as run:
             with self.assertRaises(ValueError):
                 wrapper.execute(self.plan())
         run.assert_not_called()

@@ -5,6 +5,7 @@ import datetime as dt
 import fcntl
 import json
 import ipaddress
+import math
 import os
 from pathlib import Path
 import re
@@ -16,7 +17,32 @@ import uuid
 
 ROOT = Path('/opt/hderc-internal/nick/physical-ai-competition')
 GPU = 'GPU-7c4310dd-d211-6c65-506c-2a74f693fe8b'
-DEADLINE = dt.datetime(2026, 11, 3, 7, 30, tzinfo=dt.timezone.utc).timestamp()
+def remaining_budget(policy=None, now=None):
+    """Seconds available for a new batch, or None when policy explicitly has no deadline."""
+    if policy is None:
+        policy = json.loads((ROOT / 'control/policy.json').read_text())
+    value = policy.get('deadline')
+    if value is None:
+        return None
+    if not isinstance(value, str):
+        raise ValueError('Deadline must be null or a timezone-aware ISO timestamp')
+    deadline = dt.datetime.fromisoformat(value)
+    if deadline.tzinfo is None or deadline.utcoffset() is None:
+        raise ValueError('Deadline must include a timezone')
+    margin = policy['stop_new_work_seconds_before_deadline']
+    if type(margin) not in (int, float) or not math.isfinite(margin) or margin < 0:
+        raise ValueError('Invalid deadline reserve')
+    return deadline.timestamp() - (time.time() if now is None else now) - margin
+
+
+def check_batch_deadline(seconds, policy=None, now=None):
+    if type(seconds) not in (int, float) or not math.isfinite(seconds) or seconds < 0:
+        raise ValueError('Batch bound must be finite and nonnegative')
+    remaining = remaining_budget(policy, now)
+    if remaining is not None and seconds >= remaining:
+        raise ValueError('Conservative batch bound exceeds the policy deadline reserve')
+    return remaining
+
 
 
 def owned(path):
@@ -143,8 +169,7 @@ def main():
         return
     if sys.platform != 'linux' or Path(__file__).resolve().parent != ROOT / 'experiments':
         raise ValueError('Execution requires the isolated Linux task checkout')
-    if time.time() + plan['worst_case_seconds'] >= DEADLINE:
-        raise ValueError('The bounded plan cannot finish before the experiment deadline')
+    check_batch_deadline(plan['worst_case_seconds'])
     env = environment()
     for key in ('PHYSICAL_AI_CACHE_DIR', 'XDG_CACHE_HOME', 'XDG_CONFIG_HOME', 'XDG_DATA_HOME', 'TMPDIR', 'UV_CACHE_DIR',
                 'UV_PYTHON_INSTALL_DIR', 'HF_HOME', 'MLSPACES_ASSETS_DIR', 'MLSPACES_CACHE_DIR'):
