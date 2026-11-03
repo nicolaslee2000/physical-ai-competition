@@ -1,0 +1,3 @@
+# Unmeasured runtime candidate. All weights, preprocessing and sampling steps stay fixed.
+FROM positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6
+RUN /positronic/.venv/bin/python -c 'from pathlib import Path; p=Path("/positronic/positronic/vendors/molmoact2/policy.py"); s=p.read_text(); old="enable_cuda_graph=False"; assert s.count(old)==1, "Unexpected pinned model source"; p.write_text(s.replace(old,"enable_cuda_graph=True"))'
