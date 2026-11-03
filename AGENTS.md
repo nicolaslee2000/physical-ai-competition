@@ -1,3 +1,10 @@
+**Independent Astra review completed; research resumed 3 November.** Follow
+`ASTRA-REVIEW.md` for the current ranked plan and validation gates. The matching
+handoff pause was archived under the explicit resume authorization. Earlier
+pending/paused statements below are historical. MolmoBot runtime viability is
+next; stock MolmoAct2 is the local control; graph/GR00T holdouts stay unused.
+Any later stop remains binding. Official submission still requires approval.
+
 # Physical AI improvement campaign
 
 **User-requested Astra Max review transition (3 November):** the current prompt

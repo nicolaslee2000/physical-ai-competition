@@ -1,3 +1,10 @@
+**Independent Astra review completed; research resumed 3 November.** Follow
+`ASTRA-REVIEW.md` for the current ranked plan and validation gates. The matching
+handoff pause was archived under the explicit resume authorization. Earlier
+pending/paused statements below are historical. MolmoBot runtime viability is
+next; stock MolmoAct2 is the local control; graph/GR00T holdouts stay unused.
+Any later stop remains binding. Official submission still requires approval.
+
 # Continuous Physical AI campaign controller
 
 The user explicitly resumed on 3 November 2026 with **no time limit**, targeting **at least 50% official success**. The original overnight deadline is obsolete; `policy.json` now has `deadline: null`. The filename is retained for existing controller references. This is a research objective, not a promised score. Quota and manual-stop rules still apply.
