@@ -93,3 +93,13 @@ still had 63% remaining. Task jobs/engine are stopped and the overnight heartbea
 was deleted. `control/save-usage.py` now mirrors each live check immediately,
 without clearing stop markers. `HANDOFF.md` records the prepared fresh pick20 and
 placement10 tests. Respect the stop latch; do not rearm without explicit resume.
+
+## 3 November, 09:46 UTC: placement comparison resumed
+
+The campaign remains active with no time limit following the explicit resume.
+The historical 22:36 stop above was resolved by that resume; quota snapshots now
+mirror immediately. All 385 frozen-scene object dependencies are ready. The
+unchanged placement10 comparison restarted in batch
+`fresh-20261103T094610Z-1b8b2137`; scores are pending. GR00T is cached and its
+development/session screen is next. Public demo conversion remains prepared,
+not executed. No additional official submission has been made.
