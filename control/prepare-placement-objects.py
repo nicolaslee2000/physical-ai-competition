@@ -167,6 +167,17 @@ def main():
         guard()
         source, package = row['source'], row['package']
         destination = CACHE / 'objects' / source / VERSIONS[source]
+        required = [destination / name for name in row['referenced_files']]
+        if source == 'thor' and required and all(leaf_ready(path) for path in required):
+            # THOR archives span many unrelated assets. Some unused provider
+            # XMLs are empty; leave those untouched when every frozen-scene
+            # dependency is already present and nonempty.
+            results.append({'source': source, 'package': package,
+                            'status': 'required_references_already_present', 'GETs': 0,
+                            'required_files_verified': len(required)})
+            (archive / 'results.json').write_text(json.dumps(results, indent=2) + '\n')
+            guard()
+            continue
         paths = [destination / leaf for leaf in row['leaf_paths']]
         if any(path.exists() and not leaf_ready(path) for path in paths):
             raise ValueError('Ambiguous existing object leaf; preserve for explicit review')
