@@ -5,4 +5,11 @@
 /storage/
 /logs/
 /state/
+/models/
+/datasets/
+/checkpoints/
+/data/
+/data-tools/
+/positronic/
+/experiments/results/
 __pycache__/
