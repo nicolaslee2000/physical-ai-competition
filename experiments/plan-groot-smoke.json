@@ -1,24 +1,18 @@
 {
-  "name": "gr00t_n17_droid_same_dev_screen",
-  "status": "research_plan_only_no_pull",
-  "image": "docker.io/positro/gr00t-n17-droid@sha256:cf3a4f0ab524bc776f3ae9ee5cc972d0b3cfb0caa0c42d2cb73d2805b4281f39",
-  "image_tag_checked": "docker.io/positro/gr00t-n17-droid:latest",
-  "image_architecture": "linux/amd64 single-manifest image (registry manifest inspection; no pull)",
-  "compressed_bytes": 23762823439,
-  "model_repo": "nvidia/GR00T-N1.7-DROID",
-  "model_revision": "05e7cc97e40dbd33b0890c35cc0214fcb0547ab5",
-  "gated_backbone_repo": "nvidia/Cosmos-Reason2-2B",
-  "backbone_revision": "9ce19a195e423419c349abfc86fd07178b230561",
-  "dev_episode_indices": [
-    0,
-    1,
-    2,
-    3,
-    4
+  "repo": "/opt/hderc-internal/nick/physical-ai-competition/positronic",
+  "positronic": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/positronic",
+  "python": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/python",
+  "eval_timeout_s": 3600,
+  "ready_timeout_s": 600,
+  "policies": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f"
+    },
+    {
+      "name": "groot-n17-droid",
+      "image": "docker.io/positro/gr00t-n17-droid@sha256:cf3a4f0ab524bc776f3ae9ee5cc972d0b3cfb0caa0c42d2cb73d2805b4281f39"
+    }
   ],
-  "fresh_pick_holdout": "experiments/fresh-pick-cohort.json (do not use for screening)",
-  "fresh_nextto_holdout": "experiments/fresh-placement-cohort.json (do not use for screening)",
-  "evaluation": "paired baseline on identical dev paths/seeds; record camera side order, success/unscored, latency, peak VRAM and startup",
-  "camera_risk": "NVIDIA DROID contract consumes one left exterior plus wrist; competition image.exterior side is randomized. Stratify by logged molmo.exterior_sides.",
-  "execution_authorized": false
+  "eval": "molmo.franka_pick_mini_smoke"
 }
