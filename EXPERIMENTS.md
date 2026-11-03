@@ -6,7 +6,11 @@ at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
 approvals remain unchanged. The prior stop was explicitly rearmed. The fresh
 pick20 MolmoAct2 comparison completed: **8/20 vs baseline4/20**, zero unscored,
 six improved/two regressed, exact McNemar p=0.289. This is a small local picking
-sample and does not establish the official target. Placement10 is now active.
+sample and does not establish the official target. Placement10 is awaiting
+targeted object-asset preparation: ten scene packages are cached, but compilation
+found missing referenced objects. The guarded recovery selects only 385 required
+archives (329 missing, about 319.5 MB compressed hints), not the full collection.
+GR00T's pinned image is now cached; its inference and task score are untested.
 See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
 hashes; indices, seeds and source contents did not change. Current cohort SHA:
