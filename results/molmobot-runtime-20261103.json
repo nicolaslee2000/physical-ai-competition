@@ -1,0 +1,32 @@
+{
+  "scope": "offline one-process feasibility, not task success or concurrency qualification",
+  "status": "single_process_passed",
+  "load_s": 27.060000161640346,
+  "latency_ms": {
+    "first": 506.6535733640194,
+    "p50": 286.1608532257378,
+    "p95": 389.9205067660658,
+    "max": 506.6535733640194
+  },
+  "peak": {
+    "cuda_peak_allocated_bytes": 10918901248,
+    "cuda_peak_reserved_bytes": 11706302464,
+    "cuda_current_allocated_bytes": 10131728384,
+    "cuda_current_reserved_bytes": 11706302464,
+    "card_used_at_sample_bytes": 12486311936,
+    "cgroup_host_peak_bytes": 28512325632,
+    "process_host_peak_rss_bytes": 21082648576
+  },
+  "limitations": [
+    "No native RPC/session load tested",
+    "No task success measured",
+    "Allocator peaks are instrumented; driver/card values are boundary samples, not a total-process peak",
+    "Full-card compute; no quarter-slice throughput guarantee"
+  ],
+  "source": "state/molmobot-runtime-probe.json",
+  "calls": 12,
+  "official_score_unchanged": 0.19375,
+  "model": "MolmoBot-DROID",
+  "weights_revision": "cbe6ec358958d07ddfb20d3aa54e560e9e1b18c9",
+  "no_task_score": true
+}

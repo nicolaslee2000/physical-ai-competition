@@ -5,6 +5,15 @@ pending/paused statements below are historical. MolmoBot runtime viability is
 next; stock MolmoAct2 is the local control; graph/GR00T holdouts stay unused.
 Any later stop remains binding. Official submission still requires approval.
 
+**New measured readiness:** MolmoBot's151-wheel environment passed dependency,
+native declaration and meta-model construction checks. A fresh offline runtime
+loaded the real weights in27.06s and returned12finite16x8chunks. Inference median
+286ms, maximum507ms; peak Torch reserved11.706GB, peak host cgroup26.55GiB under
+the28GiBcap. See `results/molmobot-runtime-20261103.json`. GPU driver/card totals
+were boundary samples, not a whole-process peak. No native multi-session or task
+success claim follows. Self-contained image build and native qualification are
+the next gates. All previously frozen holdouts remain unused.
+
 # Physical AI research campaign
 
 **Paused for fresh Astra Max review at the user's request.** Current prompt

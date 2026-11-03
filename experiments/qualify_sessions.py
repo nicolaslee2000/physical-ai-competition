@@ -269,8 +269,8 @@ def aggregate(rows, expected):
 
 
 def qualify(host, port, recordings, sessions, calls, task_override=None):
-    if not 1 <= sessions <= 12 or not 2 <= calls <= 5:
-        raise ValueError('Require 1..12 sessions and 2..5 calls')
+    if not 1 <= sessions <= 12 or not 2 <= calls <= 10:
+        raise ValueError('Require 1..12 sessions and 2..10 calls')
     overrides = task_override if isinstance(task_override, (list, tuple)) else [task_override] * sessions
     if len(overrides) != sessions:
         raise ValueError('One task override per session required')
