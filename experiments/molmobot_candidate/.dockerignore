@@ -1,0 +1,13 @@
+*
+!Dockerfile
+!requirements.lock
+!wheelhouse/
+!wheelhouse/**
+!molmobot_candidate/
+!molmobot_candidate/**
+!artifacts/
+!artifacts/**
+!notices/
+!notices/**
+**/__pycache__/
+**/test_*.py

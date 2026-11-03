@@ -1,0 +1,55 @@
+{
+  "scope": "No-render synthetic prompt-shape stress test, not a task score or official hardware guarantee",
+  "batch": "qualification-20261103T110105Z-31b37297",
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "status": "qualification_incomplete",
+      "functional_passed": true,
+      "serial_prompt_cases": 10,
+      "mixed12": {
+        "passed": true,
+        "calls": 48,
+        "p50_ms": 4455.181969329715,
+        "p95_ms": 4495.745340641588,
+        "max_ms": 4504.158578813076
+      },
+      "memory_sampling": {
+        "budget_bytes": 22000000000,
+        "samples": 20,
+        "malformed_samples": 0,
+        "max_sampled_card_bytes": 13396606976.0,
+        "sampled_headroom_bytes": 8603393024.0,
+        "passed": null,
+        "status": "unknown_true_peak_not_instrumented",
+        "scope": "entire assigned GPU card, not process attribution; sparse samples can miss transient old/new graph-pool overlap; no VRAM cap or peak compliance claimed"
+      }
+    },
+    {
+      "name": "molmoact2-cudagraphs",
+      "image": "sha256:461d7d9debb42d55c7139fa3300e7f63b1278ff27d172e3426bf5757fe83ce07",
+      "status": "qualification_incomplete",
+      "functional_passed": true,
+      "serial_prompt_cases": 10,
+      "mixed12": {
+        "passed": true,
+        "calls": 48,
+        "p50_ms": 12211.90339140594,
+        "p95_ms": 12384.089293982834,
+        "max_ms": 12388.178379274905
+      },
+      "memory_sampling": {
+        "budget_bytes": 22000000000,
+        "samples": 29,
+        "malformed_samples": 0,
+        "max_sampled_card_bytes": 14401142784.0,
+        "sampled_headroom_bytes": 7598857216.0,
+        "passed": null,
+        "status": "unknown_true_peak_not_instrumented",
+        "scope": "entire assigned GPU card, not process attribution; sparse samples can miss transient old/new graph-pool overlap; no VRAM cap or peak compliance claimed"
+      }
+    }
+  ],
+  "decision": "Pause for user-requested Astra Max review. Graph recapture under varied prompt shapes is much slower than stock under12sessions; do not extrapolate single-session speed or development5/5 to official gain. Sparse memory samples leave true peak unknown."
+}

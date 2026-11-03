@@ -97,7 +97,7 @@ def monitor_resources(docker, name, env, destination, stop):
             stop.wait(2)
 
 
-def execute(plan):
+def execute(plan, stage_runner=None):
     if sys.platform != 'linux' or Path(__file__).resolve().parent != h.ROOT / 'experiments':
         raise ValueError('Execute only from the isolated Linux task checkout')
     h.check_batch_deadline(plan['worst_case_seconds'])
@@ -145,8 +145,9 @@ def execute(plan):
                         if time.monotonic() >= until:
                             raise TimeoutError('Actual policy readiness timeout')
                         time.sleep(2)
-                    result['stages'] = run_stages(plan, address, row['image'], directory, env, guard)
-                    result['status'] = 'passed'
+                    runner = run_stages if stage_runner is None else stage_runner
+                    result['stages'] = runner(plan, address, row['image'], directory, env, guard)
+                    result['status'] = 'passed' if result['stages'].get('qualification_passed', True) else 'qualification_incomplete'
                 except BaseException as exc:
                     result['error_type'] = type(exc).__name__
                     raise
@@ -170,7 +171,7 @@ def execute(plan):
                     (directory / 'result.json').write_text(json.dumps(result, indent=2) + '\n')
                     results.append(result)
                     (batch / 'results.json').write_text(json.dumps(results, indent=2) + '\n')
-                if result['status'] != 'passed':
+                if result['status'] not in ('passed', 'qualification_incomplete'):
                     raise RuntimeError('Qualification cleanup failed; stop before next image')
         finally:
             signal.signal(signal.SIGTERM, previous)

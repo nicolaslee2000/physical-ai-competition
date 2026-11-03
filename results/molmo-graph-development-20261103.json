@@ -1,0 +1,118 @@
+{
+  "scope": "Reused public development0..4 only; not held-out validation or official score. Baseline label in this run is stock MolmoAct2, not pi0.5.",
+  "batch": "20261103T103720Z-b729040a",
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.4,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 52,
+        "infer_p50_ms": 371.087725,
+        "infer_p95_ms": 385.66892490000004,
+        "wall_s": 136.43218922,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    {
+      "name": "molmoact2-cudagraphs",
+      "image": "sha256:461d7d9debb42d55c7139fa3300e7f63b1278ff27d172e3426bf5757fe83ce07",
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 1.0,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 1.0,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 43,
+        "infer_p50_ms": 162.50150399999998,
+        "infer_p95_ms": 1025.5681237000001,
+        "wall_s": 109.483134104,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    }
+  ],
+  "same_prompt_session_checks": [
+    {
+      "name": "baseline",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "passed": true,
+      "stages": {
+        "2": {
+          "passed": true,
+          "calls": 8,
+          "p50_ms": 742.3555627465248,
+          "p95_ms": 755.2715377416462,
+          "max_ms": 758.0737387761474
+        },
+        "12": {
+          "passed": true,
+          "calls": 48,
+          "p50_ms": 4397.253912873566,
+          "p95_ms": 4482.877809135243,
+          "max_ms": 4497.103231027722
+        }
+      }
+    },
+    {
+      "name": "molmoact2-cudagraphs",
+      "image": "sha256:461d7d9debb42d55c7139fa3300e7f63b1278ff27d172e3426bf5757fe83ce07",
+      "passed": true,
+      "stages": {
+        "2": {
+          "passed": true,
+          "calls": 8,
+          "p50_ms": 336.8277815170586,
+          "p95_ms": 1194.2885423544794,
+          "max_ms": 1252.2244416177273
+        },
+        "12": {
+          "passed": true,
+          "calls": 48,
+          "p50_ms": 1865.2834412641823,
+          "p95_ms": 1882.017058180645,
+          "max_ms": 1892.0033182948828
+        }
+      }
+    }
+  ],
+  "decision": "Promising runtime candidate only. Require varied-prompt memory and concurrent recapture checks, then fresh paired validation before promotion.",
+  "caveats": [
+    "Small development set has been used for prior model decisions; 5/5 is not an independent success estimate.",
+    "Stock model performance has varied between runs.",
+    "Median inference improved but p95 increased due to capture/shape changes; no proof of general task improvement.",
+    "Same-prompt concurrent qualification does not establish diverse-prompt 12-session behavior.",
+    "The image is an immutable local config ID, not a published registry digest."
+  ]
+}

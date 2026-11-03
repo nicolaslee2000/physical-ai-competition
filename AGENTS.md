@@ -1,5 +1,14 @@
 # Physical AI improvement campaign
 
+**User-requested Astra Max review transition (3 November):** the current prompt
+stress job finished; task GPU job, engine and watchdog are stopped and the old
+heartbeat was deleted. Read `state/astra-review-handoff.json` and
+`state/astra-review-authorization-20261103.json`. The new Astra Max chat must
+independently audit and replan before resuming. The same human instruction
+authorizes resume after that review, including archiving ONLY the matching
+handoff stop marker whose SHA is recorded in the authorization. Any different
+or later manual/quota stop remains binding. No new experiment before review.
+
 Read `control/policy.json`, `state/usage.json`, `EXPERIMENTS.md`, and this file before doing research. On 3 November the user explicitly resumed the campaign with **no time limit**, targeting at least **50% official competition success**. `deadline: null` is intentional. The quota reserve, stop markers, storage isolation and submission approvals remain binding. A local success rate does not establish the official target.
 
 - Before every meaningful action and before spawning a worker, call the Codex app `get_usage_limits` tool. Prefer the `codex` entry in `rateLimitsByLimitId`; use all available primary/secondary windows. Remaining percent is `100 - usedPercent`. Missing quota data fails closed. Never consume reset credits or use paid API fallback.

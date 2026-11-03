@@ -18,8 +18,15 @@ Its right-camera visibility is not curated. Both small cohorts are now consumed;
 neither proves a general improvement or predicts the official score. MolmoAct2
 is the best measured local candidate. GR00T scored1/5 vs its repeated baseline3/5
 on development only and is not promoted; see [GR00T screen](groot-development-20261103.json).
-Baseline variability across small reruns reinforces the uncertainty. A paired
-stock-MolmoAct2 versus CUDA-graph development screen is now running.
+Baseline variability across small reruns reinforces the uncertainty. The graph
+candidate scored **5/5 vs stock MolmoAct2 2/5** on reused development only.
+Median inference fell from371ms to163ms, while graph p95 rose to1026ms during
+captures. Its same-prompt12session checks passed. Varied-prompt12session checks
+also passed functionally, but maximum latency rose to12.388s graph vs4.504s
+stock. Sparse memory sampling leaves true peak unknown. New validation is
+unused. The user paused for independent Astra Max review and replanning.
+See [graph development](molmo-graph-development-20261103.json) and
+[prompt stress](molmo-graph-prompt-stress-20261103.json).
 See the [pick result](molmoact2-fresh-pick-20261103.json) and
 [placement result](molmoact2-fresh-placement-20261103.json).
 

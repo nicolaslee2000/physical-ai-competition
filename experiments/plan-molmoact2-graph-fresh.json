@@ -1,0 +1,19 @@
+{
+  "repo": "/opt/hderc-internal/nick/physical-ai-competition/positronic",
+  "positronic": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/positronic",
+  "python": "/opt/hderc-internal/nick/physical-ai-competition/positronic/.venv/bin/python",
+  "eval_timeout_s": 1800,
+  "ready_timeout_s": 600,
+  "policies": [
+    {
+      "name": "baseline",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6"
+    },
+    {
+      "name": "molmoact2-cudagraphs",
+      "image": "sha256:461d7d9debb42d55c7139fa3300e7f63b1278ff27d172e3426bf5757fe83ce07"
+    }
+  ],
+  "eval": "molmo.franka_pick_mini_smoke",
+  "comparison_note": "baseline label here means unchanged stock MolmoAct2 control, not pi0.5; runtime graph toggle is the sole candidate change"
+}

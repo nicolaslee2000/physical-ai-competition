@@ -1,5 +1,13 @@
 # Physical AI research campaign
 
+**Paused for fresh Astra Max review at the user's request.** Current prompt
+stress completed. Both policies passed the functional checks, but varied-prompt
+12-session maximum latency was12.388s graph vs4.504s stock, reversing the
+same-prompt speed advantage. Sampled card totals were14.40GB vs13.40GB; true
+peak remains unknown. See results/molmo-graph-prompt-stress-20261103.json.
+Task job/engine/watchdog are stopped and the old heartbeat is deleted. New
+experiments resume only after the fresh chat's independent review and plan.
+
 **Resumed 3 November:** the user removed the deadline, requested multiple models
 and methods including public datasets, and set an official success target of
 at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
@@ -14,11 +22,14 @@ measured local candidate, with no new official submission.
 GR00T passed offline2/12session checks but scored **1/5 development vs baseline3/5**.
 Do not consume its untouched fresh cohort without a new development rationale.
 The baseline has varied between small reruns; avoid cross-batch causal rankings.
-A MolmoAct2 CUDA-graph image is built and undergoing session checks then a paired
-development screen against unchanged stock MolmoAct2, whose runner name is
-baseline. See plan-molmoact2-cudagraphs-dev.json. MolmoBot-DROID, a distinct
-simulation-trained policy, now has a mocked native adapter with built-in
-TemporalStack; packaging is being prepared, actual memory and model tests pending.
+A MolmoAct2 CUDA-graph image scored **5/5 development vs stock MolmoAct2 2/5**.
+Median inference was163ms vs371ms; graph p95 was1026ms due to capture overhead.
+Same-prompt12session checks passed, but varied-prompt memory/concurrent recapture
+checks are pending. The graph pick20 cohort is frozen and unused; do not launch
+it before those gates. See results/molmo-graph-development-20261103.json.
+MolmoBot-DROID has a mocked native adapter and offline packaging draft. Its
+pinned base and all six public20GB artifacts are downloaded and hash-verified;
+dependency resolution, actual memory and model tests remain pending.
 See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
 hashes; indices, seeds and source contents did not change. Current cohort SHA:

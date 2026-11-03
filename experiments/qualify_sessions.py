@@ -98,7 +98,16 @@ def load_development(root):
     return obs, int(chosen.static['molmo.episode_index'])
 
 
-def worker(index, host, port, recordings, calls_requested, barrier, output):
+
+def apply_task_override(observation, task_override):
+    if task_override is None:
+        return observation
+    if not isinstance(task_override, str) or not task_override.strip() or len(task_override.split()) > 128:
+        raise ValueError('Synthetic override must be a nonempty instruction of at most128 words')
+    return {**observation, 'task': task_override}
+
+
+def worker(index, host, port, recordings, calls_requested, barrier, output, task_override=None):
     result = {'worker': index, 'waves': [], 'passed': False, 'stage': 'dependencies'}
     connection_objects = []
     session = runtime = run = None
@@ -118,6 +127,7 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
         from positronic_model_server.serialization import DEFAULT_JPEG_QUALITY
         result['stage'] = 'observation'
         observation, episode = load_development(recordings)
+        observation = apply_task_override(observation, task_override)
         result['development_episode_index'] = episode
         client = InferenceClient(registry.client_wire('websocket'), wire.HostPortAddress(host, port, wire.SESSION_PATH, ''),
                                  open_timeout=3, connect_deadline=10, infer_timeout=15)
@@ -146,6 +156,7 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
             result['stage'] = 'declared_stack'
             stack = declared_stack(session.metadata, session.protocol_version)
             now, durations, valid_steps = [0], wave_result['infer_ms'], 0
+            consumed_calls = 0
             def infer(obs):
                 started = time.monotonic()
                 answer = round_trip(session, obs, session.protocol_version is not ProtocolVersion.V3 and bool(session.metadata.get(policy_keys.COMPRESS_IMAGES)), DEFAULT_JPEG_QUALITY)
@@ -164,8 +175,13 @@ def worker(index, host, port, recordings, calls_requested, barrier, output):
             barrier.wait(timeout=10)
             wave_result['synchronized_open_connection'] = True
             result['stage'] = 'inference'
-            while len(durations) < calls_requested or valid_steps < 2:
+            while len(durations) < calls_requested or valid_steps < 2 or consumed_calls < calls_requested:
+                ready_before = runtime.has_ready_answers()
+                completed_before = len(durations)
                 step = run.send(observation)
+                if ready_before and not runtime.has_ready_answers():
+                    consumed_calls = completed_before
+                    wave_result['validated_inference_results'] = consumed_calls
                 if not isinstance(step, Step):
                     raise CheckFailure('declared_stack_output_not_step')
                 result['stage'] = 'command_validation'
@@ -252,29 +268,23 @@ def aggregate(rows, expected):
             'limitation': 'fresh runtime/stack and separate client connection objects check close/reopen; V1 exposes no server IDs or END_SESSION acknowledgment; V2/V3 require both; cannot prove absence of model state leaks or official hardware compliance'}
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--url', required=True)
-    parser.add_argument('--image', required=True)
-    parser.add_argument('--recordings', type=Path, required=True)
-    parser.add_argument('--sessions', type=int, default=2)
-    parser.add_argument('--calls', type=int, default=2)
-    args = parser.parse_args()
-    host, port = validate_identity(args.url, args.image)
-    root = Path('/opt/hderc-internal/nick/physical-ai-competition')
-    if not args.recordings.resolve().is_relative_to(root):
-        parser.error('Recordings must be inside the isolated task root')
-    if not 1 <= args.sessions <= 12 or not 2 <= args.calls <= 5:
-        parser.error('Require 1..12 sessions and 2..5 inference calls per session wave')
+def qualify(host, port, recordings, sessions, calls, task_override=None):
+    if not 1 <= sessions <= 12 or not 2 <= calls <= 5:
+        raise ValueError('Require 1..12 sessions and 2..5 calls')
+    overrides = task_override if isinstance(task_override, (list, tuple)) else [task_override] * sessions
+    if len(overrides) != sessions:
+        raise ValueError('One task override per session required')
+    for override in overrides:
+        apply_task_override({}, override)
     context = mp.get_context('spawn')
-    barrier, output = context.Barrier(args.sessions), context.Queue()
-    processes = [context.Process(target=worker, args=(i, host, port, str(args.recordings), args.calls, barrier, output)) for i in range(args.sessions)]
+    barrier, output = context.Barrier(sessions), context.Queue()
+    processes = [context.Process(target=worker, args=(i, host, port, str(recordings), calls, barrier, output, overrides[i])) for i in range(sessions)]
     rows = []
     try:
         for process in processes:
             process.start()
         deadline = time.monotonic() + 150  # Imports plus two bounded waves; per-inference timeout is 15s.
-        while len(rows) < args.sessions:
+        while len(rows) < sessions:
             try:
                 rows.append(output.get(timeout=max(.01, deadline - time.monotonic())))
             except queue.Empty:
@@ -290,9 +300,26 @@ def main():
             if process.is_alive():
                 process.kill()
                 process.join(timeout=2)
-    result = aggregate(rows, args.sessions)
+    result = aggregate(rows, sessions)
     result['worker_exitcodes'] = [process.exitcode for process in processes]
     result['passed'] = result['passed'] and all(process.exitcode == 0 for process in processes)
+    return result
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument('--url', required=True)
+    parser.add_argument('--image', required=True)
+    parser.add_argument('--recordings', type=Path, required=True)
+    parser.add_argument('--sessions', type=int, default=2)
+    parser.add_argument('--calls', type=int, default=2)
+    args = parser.parse_args()
+    host, port = validate_identity(args.url, args.image)
+    root = Path('/opt/hderc-internal/nick/physical-ai-competition')
+    if not args.recordings.resolve().is_relative_to(root):
+        parser.error('Recordings must be inside the isolated task root')
+    if not 1 <= args.sessions <= 12 or not 2 <= args.calls <= 5:
+        parser.error('Require 1..12 sessions and 2..5 inference calls per session wave')
+    result = qualify(host, port, args.recordings, args.sessions, args.calls)
     result.update(image=args.image, recordings=str(args.recordings), endpoint_host=host, endpoint_port=port)
     print(json.dumps(result, indent=2, allow_nan=False))
     return 0 if result['passed'] else 2
