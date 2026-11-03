@@ -11,10 +11,14 @@ sample and does not establish the official target. Placement10 completed in
 unscored; two improved, none regressed (exact McNemar p=0.5). Both cohorts are
 consumed; do not reuse them as untouched validation. MolmoAct2 remains the best
 measured local candidate, with no new official submission.
-GR00T offline session qualification and development0..4 screening started at
-10:24 UTC through `control/run-groot-screen.sh`. MolmoBot-DROID, a distinct
-simulation-trained policy, has a source-contract audit in ignored state/; its
-client compatibility and adapter are being prepared, not yet built or tested.
+GR00T passed offline2/12session checks but scored **1/5 development vs baseline3/5**.
+Do not consume its untouched fresh cohort without a new development rationale.
+The baseline has varied between small reruns; avoid cross-batch causal rankings.
+A MolmoAct2 CUDA-graph image is built and undergoing session checks then a paired
+development screen against unchanged stock MolmoAct2, whose runner name is
+baseline. See plan-molmoact2-cudagraphs-dev.json. MolmoBot-DROID, a distinct
+simulation-trained policy, now has a mocked native adapter with built-in
+TemporalStack; packaging is being prepared, actual memory and model tests pending.
 See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
 hashes; indices, seeds and source contents did not change. Current cohort SHA:

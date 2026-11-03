@@ -16,7 +16,10 @@ versus **2/10 (20%)** for baseline, with zero unscored: two improved, none
 regressed, two succeeded for both and six failed for both (exact McNemar p=0.5).
 Its right-camera visibility is not curated. Both small cohorts are now consumed;
 neither proves a general improvement or predicts the official score. MolmoAct2
-is the best measured local candidate; GR00T screening is underway.
+is the best measured local candidate. GR00T scored1/5 vs its repeated baseline3/5
+on development only and is not promoted; see [GR00T screen](groot-development-20261103.json).
+Baseline variability across small reruns reinforces the uncertainty. A paired
+stock-MolmoAct2 versus CUDA-graph development screen is now running.
 See the [pick result](molmoact2-fresh-pick-20261103.json) and
 [placement result](molmoact2-fresh-placement-20261103.json).
 

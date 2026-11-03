@@ -1,0 +1,72 @@
+{
+  "scope": "Local public development0..4; not held-out or official score. Single trial.",
+  "batch": "20261103T102543Z-d50f7607",
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.6,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.6,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 68,
+        "infer_p50_ms": 66.063773,
+        "infer_p95_ms": 69.0178979,
+        "wall_s": 146.635922947,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    },
+    {
+      "name": "groot-n17-droid",
+      "image": "docker.io/positro/gr00t-n17-droid@sha256:cf3a4f0ab524bc776f3ae9ee5cc972d0b3cfb0caa0c42d2cb73d2805b4281f39",
+      "eval": "molmo.franka_pick_mini_smoke",
+      "full": {
+        "primary": 0.2,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development": {
+        "primary": 0.2,
+        "episodes": 5,
+        "unscored": 0
+      },
+      "development_episode_indices": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "latency": {
+        "infer_calls": 83,
+        "infer_p50_ms": 80.752615,
+        "infer_p95_ms": 85.2239254,
+        "wall_s": 182.458447648,
+        "window": "W_pass"
+      },
+      "latency_scope": "all 5 selected practice episodes; client-observed inference round trip"
+    }
+  ],
+  "decision": "Do not promote GR00T or consume its fresh cohort: 1/5 vs contemporary baseline3/5. MolmoAct2 remains best tested local candidate.",
+  "caveats": [
+    "Five episodes give high uncertainty.",
+    "The baseline has varied across development reruns, so cross-batch candidate scores do not establish a causal model ranking.",
+    "Both models passed separate local offline2/12session checks, which do not establish success gains or official hardware performance."
+  ]
+}
