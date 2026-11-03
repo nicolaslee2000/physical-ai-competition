@@ -1,0 +1,288 @@
+{
+  "status": "frozen_before_any_GR00T_development_outcome",
+  "selected_at_utc": "2026-11-03T08:35:53Z",
+  "purpose": "Separate fresh 20-episode pick-only validation set for a later GR00T finalist; do not treat as cross-model same-holdout comparison with MolmoAct2.",
+  "benchmark": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231",
+  "task_family": "DROID Franka pick mini",
+  "manifest": {
+    "server_path": "/opt/hderc-internal/nick/physical-ai-competition/cache/molmospaces/benchmarks/molmospaces-bench-v2/20260415/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/benchmark.json",
+    "sha256": "c22a7e4262d0b9e2fa073cba0fe4713f7f7a45235332de77149ee771822ca42b",
+    "episode_count": 1000
+  },
+  "selection": {
+    "rule": "random.Random(20261103).sample(sorted(nonblocked_indices minus {0..20, MolmoAct2 fresh-pick indices, public Molmo demo IDs}), 20)",
+    "python_version": "3.10.12",
+    "selection_seed": 20261103,
+    "excluded_previous_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ],
+    "excluded_MolmoAct2_fresh_pick_indices": [
+      673,
+      103,
+      445,
+      742,
+      753,
+      206,
+      162,
+      488,
+      73,
+      897,
+      987,
+      764,
+      253,
+      907,
+      475,
+      611,
+      728,
+      553,
+      243,
+      934
+    ],
+    "excluded_public_Molmo_demo_ids": [
+      472,
+      486,
+      508,
+      650,
+      663,
+      367,
+      468,
+      521,
+      703,
+      787
+    ],
+    "public_right_view_blocked_count": 110,
+    "blocked_overlap_with_reserved_indices": [
+      6
+    ],
+    "eligible_count": 840,
+    "all_indices_in_bounds": true,
+    "all_indices_unblocked": true,
+    "disjoint_from_MolmoAct2_holdout_and_public_demo_ids": true
+  },
+  "camera_order_provenance": "Pinned v2 config draws random.Random(eval.seed).sample([LEFT, RIGHT], 2); seed 0 gives right,left and seed 1 gives left,right. First ten selected entries use seed 0; last ten use seed 1. Pair the official baseline and GR00T on identical episode paths and seeds. This new GR00T set is distinct from the frozen MolmoAct2 set; do not claim a cross-model same-holdout comparison.",
+  "episodes": [
+    {
+      "selection_order": 1,
+      "episode_index": 131,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/131",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 2,
+      "episode_index": 192,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/192",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 3,
+      "episode_index": 214,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/214",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 4,
+      "episode_index": 249,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/249",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 5,
+      "episode_index": 755,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/755",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 6,
+      "episode_index": 750,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/750",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 7,
+      "episode_index": 994,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/994",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 8,
+      "episode_index": 178,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/178",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 9,
+      "episode_index": 87,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/87",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 10,
+      "episode_index": 649,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/649",
+      "eval_seed": 0,
+      "camera_order": [
+        "right",
+        "left"
+      ]
+    },
+    {
+      "selection_order": 11,
+      "episode_index": 317,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/317",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 12,
+      "episode_index": 651,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/651",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 13,
+      "episode_index": 901,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/901",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 14,
+      "episode_index": 830,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/830",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 15,
+      "episode_index": 858,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/858",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 16,
+      "episode_index": 622,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/622",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 17,
+      "episode_index": 157,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/157",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 18,
+      "episode_index": 231,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/231",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 19,
+      "episode_index": 554,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/554",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    },
+    {
+      "selection_order": 20,
+      "episode_index": 926,
+      "episode_path": "molmospaces-bench-v2/procthor-10k/FrankaPickDroidMiniBench/FrankaPickDroidMiniBench_json_benchmark_20251231/926",
+      "eval_seed": 1,
+      "camera_order": [
+        "left",
+        "right"
+      ]
+    }
+  ],
+  "runner_and_score": "Pinned custom runner accepts `positronic eval run --eval=.sim.molmo.benchmarks --eval.episode_paths=[...] --eval.seed=N --eval.trial_count=1` with each path `<benchmark path>/<index>`. Pair baseline and GR00T within this set; score using the public Molmo end-labeler and MeanEpisodeScore semantics.",
+  "holdout_policy": "Use only for a later GR00T finalist after screening on development episodes. Do not tune on these episodes. Keep the MolmoAct2 fresh pick and next-to cohorts separate. No GR00T outcomes were available or inspected at selection.",
+  "provenance": "Read-only task-root manifest, right-view blocklist and existing cohort/demo index metadata. Selection inspected only bounds, public blocklist membership, and reserved ID sets; no success outcomes or replay were inspected."
+}
