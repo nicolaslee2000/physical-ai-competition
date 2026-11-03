@@ -1,4 +1,4 @@
-# Overnight experiment backlog (Nov 2–3)
+# Physical AI research campaign
 
 **Resumed 3 November:** the user removed the deadline, requested multiple models
 and methods including public datasets, and set an official success target of
@@ -6,10 +6,10 @@ at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
 approvals remain unchanged. The prior stop was explicitly rearmed. The fresh
 pick20 MolmoAct2 comparison completed: **8/20 vs baseline4/20**, zero unscored,
 six improved/two regressed, exact McNemar p=0.289. This is a small local picking
-sample and does not establish the official target. Placement10 is awaiting
-targeted object-asset preparation: ten scene packages are cached, but compilation
-found missing referenced objects. The guarded recovery selects only 385 required
-archives (329 missing, about 319.5 MB compressed hints), not the full collection.
+sample and does not establish the official target. Placement10 is running in
+`fresh-20261103T094610Z-1b8b2137`. Its ten scenes and all 385 targeted object
+archives are ready after recovering missing dependencies. No placement outcome
+has been measured yet.
 GR00T's pinned image is now cached; its inference and task score are untested.
 See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
@@ -19,7 +19,7 @@ placement `3f95af6784d3b25d5988a69db2e8f563dbed4af64ee0e340a02078faccb9920b`.
 
 ## Baseline and guardrails
 
-Keep the official π0.5 DROID image as the control: base image pinned in `Dockerfile`; submitted digest `ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda`. Submission `6167d92cf2009b1e` finished successfully: **62/320 successes (19.375%)**, zero unscored, ranked 19 when checked at 22:23 UTC. Stable replay publication is pending. `results/official-baseline-20261102.json` records the result. `validation.json` only establishes the earlier offline startup/readiness check; scored evidence is separate.
+Keep the official π0.5 DROID image as the control: base image pinned in `Dockerfile`; submitted digest `ghcr.io/nicolaslee2000/physical-ai-competition@sha256:4359b618a74ebf38dfd548c25963ea781f967a9b34be8390ed5fa6e3128d7fda`. Submission `6167d92cf2009b1e` finished successfully: **62/320 successes (19.375%)**, zero unscored, ranked 19 when checked at 22:23 UTC. Stable replay: https://app.positronic.ro/v/WKps7S_-qP89_bQ5kxbPhA/. `results/official-baseline-20261102.json` records the result. `validation.json` only establishes the earlier offline startup/readiness check; scored evidence is separate.
 
 Constraints from the competition guide: the runtime has no network, gets one 24 GB GPU slice, and opens one server session per episode. The local GPU is useful for controlled comparisons, but cannot reproduce competition hardware exactly. Before testing variants, preserve the baseline image/digest and its result artifacts; package all candidate dependencies and weights offline. Official submissions remain approval-based; verify the current competition quota before any submission.
 
