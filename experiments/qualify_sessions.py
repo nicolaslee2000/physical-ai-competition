@@ -73,6 +73,8 @@ def load_development(root):
     if chosen is None:
         raise ValueError('No public development recording (indices 0..4)')
     required = (keys.JOINTS, keys.GRIP, keys.EXTERIOR_IMAGE, keys.WRIST_IMAGE)
+    if keys.EE_POSE in chosen.signals:
+        required += (keys.EE_POSE,)
     if keys.EXTERIOR_IMAGE_2 in chosen.signals:
         required += (keys.EXTERIOR_IMAGE_2,)
     signals = {name: chosen.signals[name] for name in required}
@@ -87,6 +89,8 @@ def load_development(root):
         raise ValueError('Missing recorded task instruction')
     if np.asarray(obs[keys.JOINTS]).shape != (7,) or not np.isfinite(obs[keys.JOINTS]).all():
         raise ValueError('Invalid recorded joints')
+    if keys.EE_POSE in obs and (np.asarray(obs[keys.EE_POSE]).shape != (7,) or not np.isfinite(obs[keys.EE_POSE]).all()):
+        raise ValueError('Invalid recorded end-effector pose')
     for name in (key for key in required if key.startswith(keys.IMAGE_PREFIX)):
         value = np.asarray(obs[name])
         if value.ndim != 3 or value.shape[-1] != 3 or value.dtype != np.uint8:
