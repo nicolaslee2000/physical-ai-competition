@@ -8,17 +8,16 @@ authorized within the isolated server folder; official submissions need approval
 
 ## Active sequence
 
-1. **Validate MolmoAct2:** development was 4/5 versus baseline1/5. Run the frozen
-   fresh pick20 comparison, then the separate next-to placement10 diagnostic.
-   Report picking and placement separately, exact paired outcomes and timing.
-   These cohorts are not training data and must not become tuning sets.
-2. **Compare GR00T N1.7 DROID:** a distinct public pretrained-policy baseline.
-   `experiments/plan-groot-smoke.json` records the verified image manifest and
-   checkpoint provenance. Convert that research plan to a supported executable
-   comparison, pull only after the active comparison ends, then screen on the
-   established development episodes. Freeze a new unused validation set before
-   any subsequent finalist decision; prior cohort results remain visible as
-   consumed validation, never renamed as untouched.
+1. **MolmoAct2 validation completed:** fresh pick8/20 vs baseline4/20; separate
+   placement4/10 vs2/10, zero unscored. Both small cohorts are consumed and remain
+   separate from training. These results do not establish the official target.
+2. **GR00T N1.7 DROID screening active:** the pinned image is cached. The guarded
+   control/run-groot-screen.sh performs offline2/12session qualification then the
+   same development0..4 comparison. The disjoint fresh-groot-pick-cohort.json is
+   frozen for a finalist after development decisions. A simulation-trained
+   MolmoBot-DROID adapter is also undergoing source/client compatibility review;
+   it has not been built or evaluated. Preserve per-session history and native
+   protocol compatibility; do not assume custom client code ships with an image.
 3. **Audit public training data:** inspect metadata, terms, success labels,
    embodiment, cameras, frame conventions and action units before training.
    Candidate sources are the official ten MolmoSpaces demos, the separate

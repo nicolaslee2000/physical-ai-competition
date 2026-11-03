@@ -1,0 +1,102 @@
+{
+  "scope": "Frozen local public next-to placement diagnostic; not official score or a forecast. Single trial per episode. Small sample.",
+  "batch": "fresh-20261103T094610Z-1b8b2137",
+  "cohort_sha256": "3f95af6784d3b25d5988a69db2e8f563dbed4af64ee0e340a02078faccb9920b",
+  "episodes_per_policy": 10,
+  "visibility_caveat": "No curated right-view blocklist entry exists for this benchmark. Right-view visibility is unknown; do not post-select by visibility or outcome.",
+  "results": [
+    {
+      "name": "baseline",
+      "image": "positro/pi05-droid@sha256:94ef6b483f460b2453cc0e555668e84af0eb790b9598aabbadc406382ef6ca2f",
+      "scores": {
+        "primary": 0.2,
+        "episodes": 10,
+        "unscored": 0
+      },
+      "successes": 2,
+      "wilson95": [
+        0.05668215145437519,
+        0.5098375284633583
+      ],
+      "by_camera_order": {
+        "left/right": {
+          "successes": 1,
+          "episodes": 5
+        },
+        "right/left": {
+          "successes": 1,
+          "episodes": 5
+        }
+      },
+      "cohort_timing": {
+        "0": {
+          "infer_calls": 120,
+          "infer_p50_ms": 64.99194449999999,
+          "infer_p95_ms": 67.6737654,
+          "wall_s": 522.857449234,
+          "window": "W_pass"
+        },
+        "1": {
+          "infer_calls": 113,
+          "infer_p50_ms": 65.209589,
+          "infer_p95_ms": 69.901863,
+          "wall_s": 449.031149775,
+          "window": "W_pass"
+        }
+      }
+    },
+    {
+      "name": "molmoact2-droid",
+      "image": "positro/molmoact2-droid@sha256:53be1ce8e9c6456626987720b08d713fa6d2c62eb4b4b9338393d5e4e35802b6",
+      "scores": {
+        "primary": 0.4,
+        "episodes": 10,
+        "unscored": 0
+      },
+      "successes": 4,
+      "wilson95": [
+        0.16818032970623614,
+        0.6873262302663417
+      ],
+      "by_camera_order": {
+        "left/right": {
+          "successes": 2,
+          "episodes": 5
+        },
+        "right/left": {
+          "successes": 2,
+          "episodes": 5
+        }
+      },
+      "cohort_timing": {
+        "0": {
+          "infer_calls": 88,
+          "infer_p50_ms": 367.7087405,
+          "infer_p95_ms": 376.91132495,
+          "wall_s": 512.390845119,
+          "window": "W_pass"
+        },
+        "1": {
+          "infer_calls": 91,
+          "infer_p50_ms": 368.924684,
+          "infer_p95_ms": 379.847271,
+          "wall_s": 568.771539729,
+          "window": "W_pass"
+        }
+      }
+    }
+  ],
+  "paired_counts": {
+    "both_failure": 6,
+    "improved": 2,
+    "both_success": 2,
+    "regressed": 0
+  },
+  "exact_mcnemar_p": 0.5,
+  "caveats": [
+    "Different local public task distribution and simulator revision from official evaluator.",
+    "Non-target scene-object lookup warnings occurred; fixed cohorts were preserved without outcome-based filtering.",
+    "The right-view blocklist has no entry for this benchmark; view visibility is not curated.",
+    "This cohort is consumed; do not reuse it as untouched validation for further tuning."
+  ]
+}

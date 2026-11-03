@@ -1,6 +1,6 @@
 # Local development screen — 2 November 2026
 
-## Fresh picking result; placement test running
+## Fresh picking and placement results
 
 On 3 November the user explicitly resumed with no time deadline and a target of
 at least 50% official success. The quota reserve remains. The fixed controller
@@ -11,8 +11,14 @@ On the frozen **20 previously unused public picking episodes**, MolmoAct2 scored
 scored. Six cases improved and two regressed. The exact two-sided McNemar
 p-value is 0.289, so this small sample gives uncertain evidence for a general
 gain. These are local picking results, not official scores or placement results.
-The separate frozen ten-episode placement diagnostic is running.
-See the [fresh paired result](molmoact2-fresh-pick-20261103.json).
+The separate frozen placement diagnostic scored **4/10 (40%)** for MolmoAct2
+versus **2/10 (20%)** for baseline, with zero unscored: two improved, none
+regressed, two succeeded for both and six failed for both (exact McNemar p=0.5).
+Its right-camera visibility is not curated. Both small cohorts are now consumed;
+neither proves a general improvement or predicts the official score. MolmoAct2
+is the best measured local candidate; GR00T screening is underway.
+See the [pick result](molmoact2-fresh-pick-20261103.json) and
+[placement result](molmoact2-fresh-placement-20261103.json).
 
 MolmoAct2 DROID completed **4/5 development tasks**, versus **1/5** for the repeated
 baseline, with zero unscored episodes. Local inference p95 was 380.8 ms versus

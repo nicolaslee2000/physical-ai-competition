@@ -6,11 +6,15 @@ at least 50%. Quota stop25%/user reserve20%, storage isolation and submission
 approvals remain unchanged. The prior stop was explicitly rearmed. The fresh
 pick20 MolmoAct2 comparison completed: **8/20 vs baseline4/20**, zero unscored,
 six improved/two regressed, exact McNemar p=0.289. This is a small local picking
-sample and does not establish the official target. Placement10 is running in
-`fresh-20261103T094610Z-1b8b2137`. Its ten scenes and all 385 targeted object
-archives are ready after recovering missing dependencies. No placement outcome
-has been measured yet.
-GR00T's pinned image is now cached; its inference and task score are untested.
+sample and does not establish the official target. Placement10 completed in
+`fresh-20261103T094610Z-1b8b2137`: **MolmoAct2 4/10 vs baseline2/10**, zero
+unscored; two improved, none regressed (exact McNemar p=0.5). Both cohorts are
+consumed; do not reuse them as untouched validation. MolmoAct2 remains the best
+measured local candidate, with no new official submission.
+GR00T offline session qualification and development0..4 screening started at
+10:24 UTC through `control/run-groot-screen.sh`. MolmoBot-DROID, a distinct
+simulation-trained policy, has a source-contract audit in ignored state/; its
+client compatibility and adapter are being prepared, not yet built or tested.
 See `RESEARCH.md` and `results/molmoact2-fresh-pick-20261103.json`.
 The cohort cache-location typo was corrected after checking both actual manifest
 hashes; indices, seeds and source contents did not change. Current cohort SHA:
